@@ -1,0 +1,15 @@
+#!/bin/sh
+
+[ $(pidof mpd) ] &&
+        INFO="$(mpc | head -1)" &&
+        MUSIC="$(mpc | awk 'NR==2{print $3}')"
+
+if [ ! "$INFO" ]; then
+        STATUS="MPD Disconnected"
+elif [ -z "$MUSIC" ]; then
+        STATUS="■ Stopped"
+else
+      STATUS="🎵 $INFO ($MUSIC)"
+fi
+
+echo "$STATUS"

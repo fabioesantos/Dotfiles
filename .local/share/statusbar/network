@@ -1,0 +1,22 @@
+#!/bin/sh
+
+#network=$(ip route get 1.1.1.1 | grep -Po '(?<=dev\s)\w+' | cut -f1 -d ' ')
+network=$(ip route get 1.1.1.1 | grep -Po '(?<=dev\s)\w+')
+interface_easyname=$(dmesg | grep $network | grep renamed | awk 'NF>1{print $NF}')
+ping="("$(ping -c 1 1.1.1.1 | tail -1 | awk '{print $4}' | cut -d '/' -f 2 | cut -d '.' -f 1)" ms)"
+
+if ! [ "$network" ]; then
+        network_active="⛔"
+        ping="Disconnected"
+elif [ "$interface_easyname" = "wlan0" ]; then
+        network_name="$(wpa_cli status | awk NR==4 | cut -d '=' -f2)"
+        network_active=""
+elif [ "$network" = "tun0" ]; then
+        network_name="VPN"
+        network_active="😎"
+else
+        network_name="$interface"
+        network_active=""
+fi
+
+echo "$network_active $network_name $ping"

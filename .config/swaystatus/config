@@ -1,0 +1,14 @@
+#!/bin/sh
+
+scripts_dir="${HOME}/.local/share/statusbar/"
+
+mpd="$($scripts_dir/mpd)"
+net="$($scripts_dir/network)"
+batt="$($scripts_dir/battery)"
+vol="$($scripts_dir/volume)"
+mem="$($scripts_dir/memory)"
+cpu="$($scripts_dir/cpu)"
+date="$($scripts_dir/date)"
+temp="$($scripts_dir/cpu_temp)"
+
+echo "$mpd  |  $vol  |  $temp  |  $cpu  |  $mem  |  $net  |  $batt  |  $date "

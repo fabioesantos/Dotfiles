@@ -1,0 +1,7 @@
+# Aliases for the shell
+
+#alias vim="nvim"
+#alias icat="kitty +kitten icat"
+alias ls="ls -hN --color=auto --group-directories-first"
+alias grep="grep --color"
+alias xystray="xystray -iconrows 1 -iconcols 4"

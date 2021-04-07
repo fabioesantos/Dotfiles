@@ -1,0 +1,58 @@
+!! X cursor settings
+Xcursor.theme: gentoo
+Xcursor.size: 23
+
+!! X font settings
+Xft.dpi: 96
+Xft.antialias: true
+Xft.hinting: true
+Xft.autohint: true
+Xft.hintstyle: hintfull
+Xft.lcdfilter: lcdfilter
+Xft.rgba: rgb
+
+!! Color scheme
+#include </home/fabiosantos/.config/X11/colorscheme>
+
+!! Xterm config
+XTerm*termName:           xterm-256color
+XTerm*renderFont:         true
+Xterm*font:               TerminessTTF Nerd Font
+XTerm*faceName:           xft:TerminessTTF Nerd Font
+XTerm*faceSize:           9
+XTerm*utf8:               2
+XTerm*locale:             true
+XTerm*charClass:          33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+xterm*cursorColor:        basegentoo
+Xterm*dynamiccolors:      true
+Xterm*geometry:           90x20
+Xterm*visualBell:         off
+Xterm*highlightSelection: true
+
+XTerm*vt100.translations: #override \
+    Ctrl <Key> minus:   smaller-vt-font() \n\
+    Ctrl <Key> plus:    larger-vt-font() \n\
+    Shift Ctrl <Key> C: copy-selection(CLIPBOARD) \n\
+    Shift Ctrl <Key> V: insert-selection(CLIPBOARD)
+
+!! Xterm color scheme
+!
+XTerm*background:#222222
+XTerm*foreground:#FFFFFF
+!
+!XTerm*color0: black
+!XTerm*color1: red3
+!XTerm*color2: green3
+!XTerm*color3: yellow3
+!XTerm*color4: DodgerBlue1
+!XTerm*color5: magenta3
+!XTerm*color6: cyan3
+!XTerm*color7: gray90
+!XTerm*color8: gray50
+!XTerm*color9: red
+!XTerm*color10: green
+!XTerm*color11: yellow
+!XTerm*color12: blue
+!XTerm*color13: magenta
+!XTerm*color14: cyan
+!XTerm*color15: white

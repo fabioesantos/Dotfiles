@@ -1,0 +1,31 @@
+#!/bin/sh
+
+# This file runs when a DM logs you into a graphical session.
+# If you use startx/xinit like a Chad, this file will also be sourced.
+
+[ ! "$(ls /tmp/xobpipe)" ] && mkfifo /tmp/xobpipe &
+
+xrdb -merge $HOME/.config/X11/Xresources &
+
+setxkbmap -layout br &
+
+xrandr --output HDMI1 --mode 1360x768 --primary &
+
+xrandr --dpi 96 &
+
+xwallpaper --stretch Pictures/Wallpapers/roofgirl.jpg &
+
+if [ "$(pidof redshift)" ]; then
+        killall redshift && redshift &
+else
+        redshift &
+fi
+
+if [ ! "$(pidof xob)" ]; then
+        tail -f /tmp/xobpipe | xob -c ~/.config/xob/style.cfg -s i3 &
+else
+        killall xob;
+        tail -f /tmp/xobpipe | xob -c ~/.config/xob/style.cfg -s i3 &
+fi
+
+killall dwmstatus; dwmstatus &

@@ -1,0 +1,18 @@
+#!/bin/sh
+
+scripts_dir="${HOME}/.local/share/statusbar/"
+echo_bar() {
+        echo " $1 $delim $2 $delim $3 $delim $4 $delim $5 $delim $6 $delim $7" 
+}
+mpd="$($scripts_dir/mpd)"
+net="$($scripts_dir/network)"
+batt="$($scripts_dir/battery)"
+vol="$($scripts_dir/volume)"
+mem="$($scripts_dir/memory)"
+cpu="$($scripts_dir/cpu)"
+date="$($scripts_dir/date)"
+#temp="$($scripts_dir/cpu_temp)"
+
+delim="|"
+
+echo_bar "$mpd" "$vol" "$cpu" "$mem" "$net" "$batt" "$date"

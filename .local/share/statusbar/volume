@@ -1,0 +1,23 @@
+#!/bin/bash
+
+VOLUME="$(awk -F"[][]" '/dB/ { print $2 }' <(amixer sget Master) | sed 's/%//' )"
+headphone="$(cat /proc/asound/card0/codec#0 | grep "Pin-ctls" | awk 'NR==2{print $3}')"
+
+if [ $(amixer sget Master | awk 'NR==5{print $6}') = "[off]" ]; then
+        VOL_ICON="🔇"
+        VOLUME="Muted"
+elif [ ! "$headphone" = "OUT" ]; then
+        VOL_ICON=""
+elif [ $VOLUME -lt 30 ]; then
+	VOL_ICON="奄"
+elif [ $VOLUME -lt 60 ]; then
+	VOL_ICON="奔"
+else
+	VOL_ICON="墳"
+fi
+
+if [ "$VOLUME" = "Muted" ]; then
+        echo "$VOL_ICON $VOLUME"
+else
+        echo "$VOL_ICON $VOLUME%"
+fi
