@@ -1,5 +1,5 @@
 #!/bin/sh
 
-temp=$(sensors | grep "Package id 0" | awk '{print $4}' | sed 's/+//g')
+temp=$(sensors | awk 'NR==8{print $4}' | sed 's/+//g')
 
 echo " $temp"

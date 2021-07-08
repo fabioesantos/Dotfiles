@@ -1,4 +1,4 @@
 #!/bin/sh
 
 #echo "📅 $(date '+%a %D')"
-echo "📅 $(date '+%b %d (%a) %R')"
+echo "  $(date '+%b %d (%a) %R')"

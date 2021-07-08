@@ -1,11 +1,28 @@
+" Make vim respects XDG specification
+set runtimepath^=$XDG_CONFIG_HOME/vim
+set runtimepath+=$XDG_DATA_HOME/vim
+set runtimepath+=$XDG_CONFIG_HOME/vim/after
+
+set packpath^=$XDG_DATA_HOME/vim,$XDG_CONFIG_HOME/vim
+set packpath+=$XDG_CONFIG_HOME/vim/after,$XDG_DATA_HOME/vim/after
+
+let g:netrw_home = $XDG_DATA_HOME."/vim"
+call mkdir($XDG_DATA_HOME."/vim/spell", 'p')
+set viewdir=$XDG_DATA_HOME/vim/view | call mkdir(&viewdir, 'p')
+
+set backupdir=$XDG_CACHE_HOME/vim/backup | call mkdir(&backupdir, 'p')
+set directory=$XDG_CACHE_HOME/vim/swap   | call mkdir(&directory, 'p')
+set undodir=$XDG_CACHE_HOME/vim/undo     | call mkdir(&undodir,   'p')
+
+set viminfofile=$XDG_CACHE_HOME/vim/viminfo
+
+" Call plugins with vim-plug
 call plug#begin('/home/fabiosantos/.local/share/vim/plugged')
-Plug 'jalvesaq/Nvim-R'
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'ncm2/ncm2-vim'
-Plug 'Shougo/neco-vim'
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
+Plug 'jalvesaq/Nvim-R'
 Plug 'gaalcaras/ncm-R'
+Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'preservim/nerdtree'
 Plug 'Raimondi/delimitMate'
 Plug 'patstockwell/vim-monokai-tasty'
@@ -15,22 +32,34 @@ Plug 'Konfekt/FastFold'
 Plug 'matze/vim-tex-fold'
 call plug#end()
 
+" Set spellcheck language to portuguese
+set spelllang=pt
+
+" Change prompt in diferent modes
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
+
 " Vim clipboard buffer shared with the system clipboard
 set clipboard=unnamedplus
 
 " Vim autocompetion menu
 set wildmenu
 
-" Set python executable
-let g:python3_host_prog = "/usr/bin/python"
+" fixes mouse scrolling in st    
+set ttymouse=sgr
+
+" Set python executable path
+let g:python3_host_prog = "/usr/bin/python3.9"
+
+" Usefull mapings
+map Y y$
 
 " Set a Local Leader
-
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
-
 
 " Plugin Related Settings
 
@@ -38,7 +67,7 @@ let g:mapleader = ","
 let g:tex_flavor  = 'latex'
 let g:tex_conceal = ''
 let g:vimtex_fold_manual = 1
-" let g:vimtex_latexmk_continuous = 1
+"let g:vimtex_latexmk_continuous = 1
 let g:vimtex_compiler_progname = 'nvr'
 let g:vimtex_view_method = 'zathura'
 
@@ -64,18 +93,16 @@ augroup NCM2
             \ 'complete_pattern': g:vimtex#re#ncm2,
             \ 'on_complete': ['ncm2#on_complete#omni', 'vimtex#complete#omnifunc'],
             \ })
-augroup END
-                                                    
+augroup END                                                    
                                                     
 " NERD Tree
 map <leader>nn :NERDTreeToggle<CR>                  " Toggle NERD tree.
 
 " Monokai-tasty
 let g:vim_monokai_tasty_italic = 1                  " Allow italics.
-colorscheme vim-monokai-tasty                       " Enable monokai theme.
 
 " LightLine.vim 
-set laststatus=2              " To tell Vim we want to see the statusline.
+set laststatus=2                                    " To tell Vim we want to see the statusline.
 let g:lightline = {
    \ 'colorscheme': 'monokai_tasty',
    \ }
@@ -84,7 +111,7 @@ let g:lightline = {
 " General NVIM/VIM Settings
 
 " Mouse Integration
-set mouse=a                   " Enable mouse support
+set mouse=a                     " Enable mouse support
 
 " Tabs & Navigation
 map <leader>nt :tabnew<cr>      " To create a new tab.
@@ -127,8 +154,8 @@ set noerrorbells                " No annoying sound on errors.
 
 " Color & Fonts
 syntax enable                   " Enable syntax highlighting.
-set encoding=utf8                " Set utf8 as standard encoding and 
-                                 " en_US as the standard language.
+set encoding=utf8               " Set utf8 as standard encoding and 
+                                " en_US as the standard language.
 
 " Enable 256 colors palette in Gnome Terminal.
 if $COLORTERM == 'truecolor'
@@ -142,13 +169,14 @@ endtry
 
 
 " Files & Backup
-set nobackup                     " Turn off backup.
-set nowb                         " Don't backup before overwriting a file.
-set noswapfile                   " Don't create a swap file.
-set ffs=unix,dos,mac             " Use Unix as the standard file type.
+set nobackup                    " Turn off backup.
+set nowb                        " Don't backup before overwriting a file.
+set noswapfile                  " Don't create a swap file.
+set ffs=unix,dos,mac            " Use Unix as the standard file type.
 
 
 " Return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-if !has('nvim') | set viminfofile=$HOME/.vim/viminfo | endif
+" toggle cursorline in insert mode
+"autocmd InsertEnter,InsertLeave * set cul!

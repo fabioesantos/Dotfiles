@@ -3,4 +3,4 @@
 #export GTK_CSD=0
 #export LD_PRELOAD="/usr/lib64/libgtk3-nocsd.so.0"
 
-j4-dmenu-desktop --term "$TERMINAL" --dmenu='dmenu -i -p "dmenu ->" -nb "#323232" -nf "#44ffff" -sb "#44ffff" -sf "#000000"'
+j4-dmenu-desktop --term "st" --dmenu='dmenu -i -p "dmenu ->" -fn "TerminessTTF Nerd Font:size=10" -nb "#323232" -nf "#44ffff" -sb "#44ffff" -sf "#000000"'

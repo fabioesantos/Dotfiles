@@ -1,7 +1,9 @@
 # Aliases for the shell
 
-#alias vim="nvim"
-#alias icat="kitty +kitten icat"
-alias ls="ls -hN --color=auto --group-directories-first"
+alias source="."
+alias ls="ls -hNF --color=auto --group-directories-first"
+alias la="ls -a"
+alias ll="ls -l"
+alias lo="ls -alo"
 alias grep="grep --color"
-alias xystray="xystray -iconrows 1 -iconcols 4"
+alias tray="xystray -iconrows 1 -iconcols 4"

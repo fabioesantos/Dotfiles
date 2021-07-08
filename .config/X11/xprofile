@@ -3,29 +3,22 @@
 # This file runs when a DM logs you into a graphical session.
 # If you use startx/xinit like a Chad, this file will also be sourced.
 
-[ ! "$(ls /tmp/xobpipe)" ] && mkfifo /tmp/xobpipe &
-
-xrdb -merge $HOME/.config/X11/Xresources &
+[ ! "$(/tmp/xobpipe)" ] && mkfifo /tmp/xobpipe &
 
 setxkbmap -layout br &
 
-xrandr --output HDMI1 --mode 1360x768 --primary &
+xrandr --output eDP1 --off --output HDMI1 --mode 1360x768 --primary &
 
 xrandr --dpi 96 &
 
-xwallpaper --stretch Pictures/Wallpapers/roofgirl.jpg &
+xrdb -merge ~/.config/X11/Xresources &
 
-if [ "$(pidof redshift)" ]; then
-        killall redshift && redshift &
-else
-        redshift &
-fi
+xwallpaper --stretch Pictures/Wallpapers/amazing_mountain_milky_way_by_yakub_nihat-wallpaper-1366x768.jpg  &
 
-if [ ! "$(pidof xob)" ]; then
-        tail -f /tmp/xobpipe | xob -c ~/.config/xob/style.cfg -s i3 &
-else
-        killall xob;
-        tail -f /tmp/xobpipe | xob -c ~/.config/xob/style.cfg -s i3 &
-fi
+gammastep &
 
-killall dwmstatus; dwmstatus &
+dwmblocks &
+
+xcompmgr -c -f -C -t-5 -l-5 -r4.2 -o.55 &
+
+tail -f /tmp/xobpipe | xob -c ~/.config/xob/style.cfg -s i3 &

@@ -1,30 +1,26 @@
-##############################################################
-#  _               _                           __ _ _        #
-# | |__   __ _ ___| |__       _ __  _ __ ___  / _(_) | ___   #
-# | '_ \ / _` / __| '_ \     | '_ \| '__/ _ \| |_| | |/ _ \  #
-# | |_) | (_| \__ \ | | |    | |_) | | | (_) |  _| | |  __/  #
-# |_.__/ \__,_|___/_| |_|____| .__/|_|  \___/|_| |_|_|\___|  #
-#                     |_____|_|                              #
-##############################################################
+#!/bin/ksh
+
+# Set location of .kshrc file
+export ENV=$HOME/.kshrc
 
 # Add '~/.local/bin' to $PATH
-export PATH="${PATH}:/home/fabiosantos/.local/bin"
+export PATH="${HOME}/.local/bin:${PATH}"
+
+# Add '~/.local/share/man' to $MANPATH
+export MANPATH="${HOME}/.local/share/man:${MANPATH}"
 
 # Exporting locale
 export LANG="en_US.UTF-8"
 
-# Add '~/.local/share/man' to $MANPATH
-export MANPATH="$HOME/.local/share/man:$MANPATH"
-
-# Make sure iris is used by mesa
-export MESA_LOADER_DRIVER_OVERRIDE=iris
+# Make sure iris is used by mesa drivers
+export MESA_LOADER_DRIVER_OVERRIDE="iris"
 
 # Default programs:
-export EDITOR="vi"
-export VISUAL="vi"
-export BROWSER="qutebrowser"
+export EDITOR="/usr/bin/vi"
+export VISUAL="/usr/bin/vi"
+export BROWSER="/usr/bin/surf"
 export READER="zathura"
-export TERMINAL="xterm"
+export TERMINAL="st"
 export FILE="lf"
 
 # XDG Defaults
@@ -33,7 +29,8 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
 
 # Cleaning $HOME
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
+export XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc"
 export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
 export INPUTRC="$XDG_CONFIG_HOME/inputrc"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
@@ -41,20 +38,12 @@ export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GOPATH="$XDG_DATA_HOME/go"
-#export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"   #this line will break display managers.
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"   #this line will break display managers.
 export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-export PASSWORD_STORE_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/password-store"
-#export WGETRC="$XDG_CONFIG_HOME/wgetrc" 
-#export CCACHE_CONFIGPATH="$XDG_CONFIG_HOME/ccache/.config"
-#export CCACHE_DIR="$XDG_CACHE_HOME/ccache"
-
-# Remove GTK CSD
-#export GTK_CSD=0
-#export LD_PRELOAD="/usr/lib64/libgtk3-nocsd.so.0"
-
-# Execute my TERMINAL for terminal apps 
-export TERMCMD="$TERMINAL"
+export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
+export WGETRC="$XDG_CONFIG_HOME/wgetrc"
+export VIMINIT="set nocp | source ${XDG_CONFIG_HOME}/vim/vimrc"
 
 # GCC colors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
@@ -65,8 +54,8 @@ export QT_QPA_PLATFORMTHEME="qt5ct"
 # Enable vkBasalt
 export ENABLE_VKBASALT=1
 
-# Fsync for wine
-#export WINEFSYNC=1
+# Enable fsync for wine
+export WINEFSYNC=1
 
 # list for lf icons:
 export LF_ICONS="\
@@ -95,7 +84,8 @@ ex=:\
 *.hh=:\
 *.hpp=:\
 *.hs=:\
-*.html=:\
+*.html=🌎:\
+*.mhtml=🌎:\
 *.java=:\
 *.jl=:\
 *.js=:\
@@ -214,14 +204,14 @@ ex=:\
 *.ogx=:\
 *.aac=:\
 *.au=:\
-*.flac=:\
+*.flac=🎵:\
 *.m4a=:\
 *.mid=:\
 *.midi=:\
 *.mka=:\
-*.mp3=:\
-*.mpc=:\
-*.ogg=:\
+*.mp3=🎵:\
+*.mpc=🎵:\
+*.ogg=🎵:\
 *.ra=:\
 *.wav=:\
 *.oga=:\

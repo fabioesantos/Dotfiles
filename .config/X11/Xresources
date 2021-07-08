@@ -1,8 +1,18 @@
-!! X cursor settings
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! __  __                                             !!
+!! \ \/ /_ __ ___  ___  ___  _   _ _ __ ___ ___  ___  !!
+!!  \  /| '__/ _ \/ __|/ _ \| | | | '__/ __/ _ \/ __| !!
+!!  /  \| | |  __/\__ \ (_) | |_| | | | (_|  __/\__ \ !!
+!! /_/\_\_|  \___||___/\___/ \__,_|_|  \___\___||___/ !!
+!!                                                    !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+/* X cursor settings */
 Xcursor.theme: gentoo
 Xcursor.size: 23
 
-!! X font settings
+/* Xft font settings */
+*font: TerminessTTF Nerd Font:pixelsize=13
 Xft.dpi: 96
 Xft.antialias: true
 Xft.hinting: true
@@ -11,48 +21,148 @@ Xft.hintstyle: hintfull
 Xft.lcdfilter: lcdfilter
 Xft.rgba: rgb
 
-!! Color scheme
-#include </home/fabiosantos/.config/X11/colorscheme>
+/* St config */
+st.alpha: 0.75
+st.alphaOffset: 0
+st.font: Monofur Nerd Font:pixelsize=13
+st.termname: st-256color
+st.borderpx: 2
+st*background: #000000
+st*foreground: #eeeeee
 
-!! Xterm config
-XTerm*termName:           xterm-256color
-XTerm*renderFont:         true
-Xterm*font:               TerminessTTF Nerd Font
-XTerm*faceName:           xft:TerminessTTF Nerd Font
-XTerm*faceSize:           9
-XTerm*utf8:               2
-XTerm*locale:             true
-XTerm*charClass:          33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
-xterm*cursorColor:        basegentoo
-Xterm*dynamiccolors:      true
-Xterm*geometry:           90x20
-Xterm*visualBell:         off
-Xterm*highlightSelection: true
+/* Base16 Unikitty Dark */
+/* Scheme: Josh W Lewis (@joshwlewis) */
+#define base00 #2e2a31
+#define base01 #4a464d
+#define base02 #666369
+#define base03 #838085
+#define base04 #9f9da2
+#define base05 #bcbabe
+#define base06 #d8d7da
+#define base07 #f5f4f7
+#define base08 #d8137f
+#define base09 #d65407
+#define base0A #dc8a0e
+#define base0B #17ad98
+#define base0C #149bda
+#define base0D #796af5
+#define base0E #bb60ea
+#define base0F #c720ca
 
-XTerm*vt100.translations: #override \
-    Ctrl <Key> minus:   smaller-vt-font() \n\
-    Ctrl <Key> plus:    larger-vt-font() \n\
-    Shift Ctrl <Key> C: copy-selection(CLIPBOARD) \n\
-    Shift Ctrl <Key> V: insert-selection(CLIPBOARD)
+*foreground:  base05
+*background:  #222222
+*cursorColor: base05
 
-!! Xterm color scheme
-!
-XTerm*background:#222222
-XTerm*foreground:#FFFFFF
-!
-!XTerm*color0: black
-!XTerm*color1: red3
-!XTerm*color2: green3
-!XTerm*color3: yellow3
-!XTerm*color4: DodgerBlue1
-!XTerm*color5: magenta3
-!XTerm*color6: cyan3
-!XTerm*color7: gray90
-!XTerm*color8: gray50
-!XTerm*color9: red
-!XTerm*color10: green
-!XTerm*color11: yellow
-!XTerm*color12: blue
-!XTerm*color13: magenta
-!XTerm*color14: cyan
-!XTerm*color15: white
+*color0:  base00
+*color1:  base08
+*color2:  base0B
+*color3:  base0A
+*color4:  base0D
+*color5:  base0E
+*color6:  base0C
+*color7:  base05
+*color8:  base03
+*color9:  base08
+*color10: base0B
+*color11: base0A
+*color12: base0D
+*color13: base0E
+*color14: base0C
+*color15: base07
+/* Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
+use 'shell' template to set these if necessary */
+*color16: base09
+*color17: base0F
+*color18: base01
+*color19: base02
+*color20: base04
+*color21: base06
+
+/* Default colorscheme*/
+/* *background: #222222 
+*foreground: #eeeeee
+*cursorColor: magenta */
+
+/* *color0: #000000 */
+/* *color8: #767676 */
+/* *color1: #cc0403 */
+/* *color9: #f2201f */
+/* *color2: #19cb00 */
+/* *color10: #23fd00 */
+/* *color3: #cecb00 */
+/* *color11: #fffd00 */
+/* *color4: #0d73cc */
+/* *color12: #1a8fff */
+/* *color5: #cb1ed1 */
+/* *color13: #fd28ff */
+/* *color6: #0dcdcd */
+/* *color14: #14ffff */
+/* *color7: #dddddd */
+/* *color15: #ffffff */
+
+/* Herbe config */
+herbe.background_color: #222222
+herbe.border_color: #ececec
+herbe.font_color: #ececec
+herbe.font_pattern: Monofurbold Nerd Font:size=10
+herbe.line_spacing: 5
+herbe.padding: 20
+herbe.width: 400
+herbe.border_size: 2
+herbe.pos_x: 30
+herbe.pos_y: 30
+! 0 = TOP_LEFT, 1 = TOP_RIGHT, 2 = BOTTOM_LEFT, 3 = BOTTOM_RIGHT
+herbe.corner: 1
+herbe.duration: 5
+
+/* URxvt Appearance */
+URxvt*font: xft:Monofur Nerd Font:pixelsize=13:minspace=False
+URxvt*boldFont: xft:Monofurbold Nerd Font:pixelsize=13:minspace=False
+URxvt.italicFont: xft:Monofuritalic Nerd Font:pixelsize=13:minspace=False
+!URxvt.boldItalicfont: -*-rissole-*
+URxvt*depth: 32
+URxvt*background: rgba:0000/0000/0200/c800
+URxvt*cursorColor: magenta
+URxvt.letterSpace: 0
+URxvt.lineSpace: 0
+URxvt.geometry: 92x24
+URxvt.internalBorder: 5
+URxvt.cursorBlink: true
+URxvt.cursorUnderline: false
+URxvt.saveline: 2048
+URxvt.scrollBar: false
+URxvt.scrollBar_right: false
+URxvt.urgentOnBell: true
+URxvt.iso14755: true
+
+URxvt.imLocale: en_US.UTF8
+URxvt*buffered: true
+URxvt*cursorBlink: true
+URxvt*underlineColor: yellow
+URxvt*borderless: 1
+Urxvt*secondaryScroll: true 
+URxvt*saveLines: 5000
+URxvt*termName: rxvt-unicode
+URxvt.matcher.button: 1
+
+/* Common Keybinds for Navigations */
+URxvt.keysym.Shift-Up: command:\033]720;1\007
+URxvt.keysym.Shift-Down: command:\033]721;1\007
+URxvt.keysym.Control-Up: \033[1;5A
+URxvt.keysym.Control-Down: \033[1;5B
+URxvt.keysym.Control-Right: \033[1;5C
+URxvt.keysym.Control-Left: \033[1;5D
+
+/* Copy Paste & Other Extensions */
+URxvt.perl-ext-common: default,selection-to-clipboard,clipboard,url-select,keyboard-select
+URxvt.copyCommand: xclip -i -selection clipboard
+URxvt.pasteCommand: xclip -o -selection clipboard
+URxvt.keysym.M-c: perl:clipboard:copy
+URxvt.keysym.M-v: perl:clipboard:paste
+URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+URxvt.keysym.M-s: perl:keyboard-select:search
+URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.urlLauncher: surf
+URxvt.underlineURLs: true
+URxvt.urlButton: 1

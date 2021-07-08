@@ -1,0 +1,6 @@
+#!/bin/sh
+
+while true; do
+        echo "%{r}%{F#abb2bf}%{B#222222} $(~/.config/swaystatus/config)" 
+        sleep 1
+done

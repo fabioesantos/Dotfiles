@@ -1,0 +1,10 @@
+#!/bin/sh
+
+bookmarks="$(echo 'DuckDuckGo\nTwitch\nYoutube\nStartpage' | dmenu)"
+
+case $bookmarks in
+        DuckDuckGo) surf start.duckduckgo.com ;;
+        Twitch) surf twitch.tv ;;
+        Youtube) surf youtube.com ;;
+        Startpage) surf startpage.com ;;
+esac

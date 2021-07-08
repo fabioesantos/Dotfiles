@@ -13,15 +13,16 @@
 #
 #exec megasync
 #exec mpdscribble
-exec xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55
+#exec xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55 &
+exec mpd
 
 # Set variables
-set $mod Mod4
-set $term xterm
+set $mod mod4
+set $term st
 set $background #323232
 set $highlight #44ffff
 set $promp #8a7db5
-set $uifont xft:Terminess TTF Nerd Font 9.5
+set $uifont xft:TerminessTTF Nerd Font 10
 set $menu exec ~/.config/i3/dmenu
 set $screenshot exec import -window root $HOME/Pictures/Screenshots/$(date +'%s_print.png')
 set $volumeup exec --no-startup-id amixer -c 0 set Master 5%+ && alsa-xob
@@ -186,7 +187,7 @@ bindsym XF86MonBrightnessUp	exec xbacklight -inc 5
 # Start i3bar to display a workspace bar 
 bar {
         position top
-        status_command swaystatus
+        status_command slstatus -s
         height 18
         colors {
                 statusline $highlight
