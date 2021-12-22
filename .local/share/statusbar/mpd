@@ -7,7 +7,7 @@ MPID="$(pidof mpd)"
         MUSIC="$(mpc | awk 'NR==2{print $3}')"
 
 if [ -z "$MPID" ]; then
-        STATUS="ﳤ  MPD Disconnected"
+        STATUS="MPD disconnected"
 elif [ -z "$MUSIC" ]; then
         STATUS="◼ Stopped"
 else

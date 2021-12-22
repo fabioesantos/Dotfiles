@@ -5,7 +5,7 @@ tx_current="$(( $(cat /sys/class/net/*/statistics/tx_bytes | paste -sd '+') ))"
 
 prevdata="$(cat "${HOME}/.cache/netlog")"
 
-printf "🔻 %sKiB 🔺 %sKiB\\n" \
+printf " %sKiB  %sKiB\\n" \
         "$(((${rx_current}-${prevdata%% *})/1024))" \
         "$(((${tx_current}-${prevdata##* })/1024))"
 

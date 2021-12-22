@@ -1,7 +1,34 @@
 #!/bin/sh
+############################################################
+# File:     xinitrc   Xorg init config file                #
+# URL:      https://github.com/fabioesantos/Dotfiles       #
+# Author:   Fabio Santos <fabiosantos.bio@protonmail.com>  #
+############################################################
+#                 _       _ _
+#           __  _(_)_ __ (_) |_ _ __ ___
+#           \ \/ / | '_ \| | __| '__/ __|
+#            >  <| | | | | | |_| | | (__
+#           /_/\_\_|_| |_|_|\__|_|  \___|
+#
 
-userprofile="$HOME/.config/X11/xprofile"
+# redirect errors to a file in user's home directory
+for errfile in "$HOME/.local/share/xorg/xsession-errors" "${TMPDIR-/tmp}/xses-$USER" "/tmp/xses-$USER"
+do
+	if ( cp /dev/null "$errfile" 2> /dev/null )
+	then
+		chmod 600 "$errfile"
+		exec > "$errfile" 2>&1
+		break
+	fi
+done
+
+userprofile="$XDG_CONFIG_HOME/X11/xprofile"
+#userresources="$XDG_CONFIG_HOME/X11/Xresources"
+userkbmap="$XDG_CONFIG_HOME/X11/xkbmap"
 
 [ -f "$userprofile" ] && . $userprofile
+#[ -f "$userresources" ] && xrdb -merge $userresources
+[ -f "$userkbmap" ] && setxkbmap -layout $(cat $userkbmap)
 
-exec /usr/bin/dwm
+# Start session in xsession file
+. ~/.config/X11/xsession

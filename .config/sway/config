@@ -3,17 +3,19 @@
 # Read `man 5 sway` for a complete reference.
 
 ### Autostart
-exec mpd
-exec megasync
+#exec mpd
+#exec megasync
 exec gammastep
 #exec waybar
 exec mako
-exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
+#exec mkfifo $SWAYSOCK.wob && tail -f $SWAYSOCK.wob | wob
 exec $config_dir/swaybg
-#exec wlr-randr --output eDP-1 --off
+exec wlr-randr --output eDP-1 --off
+#exec pipewire_start
+exec pulseaudio
 
 ### Disable Xwayland
-xwayland disable
+#xwayland disable
 
 ### Gaps
 gaps inner 8
@@ -194,7 +196,7 @@ bindsym $mod+r mode "resize"
 ### Status Bar:
 bar {
         position top
-        status_command slstatus -s
+        status_command swaystatus
         font '$uifont'
         height 20
         colors {
@@ -231,8 +233,8 @@ set $prev --no-startup-id mpc prev
 set $alsa-wob echo $(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/') >> $SWAYSOCK.wob
 
 ### Volume Control with Alsa
-set $inc --no-startup-id amixer -c 0 set Master 5%+ && $alsa-wob
-set $dec --no-startup-id amixer -c 0 set Master 5%- && $alsa-wob
+set $inc --no-startup-id amixer -c 0 set Master 5%+
+set $dec --no-startup-id amixer -c 0 set Master 5%-
 
 #### Custom KeyBindings #####
 bindsym $mod+shift+m            exec $music

@@ -1,19 +1,19 @@
 #!/bin/sh
 
-network=$(ip route get 1.1.1.1 | grep -Po '(?<=dev\s)\w+')
-#interface_easyname=$(dmesg | grep $network | grep renamed | awk 'NF>1{print $NF}')
-#ping="("$(ping -c 1 1.1.1.1 | tail -1 | awk '{print $4}' | cut -d '/' -f 2 | cut -d '.' -f 1)" ms)"
+network=$(ip route get 1.1.1.1 | grep -Po '(?<=dev\s)\w+') 2>/dev/null 
+ping="("$(ping -c 1 1.1.1.1 | tail -1 | awk '{print $4}' | cut -d '/' -f 2 | cut -d '.' -f 1)" ms)"
+#net_speed="$($XDG_DATA_HOME/statusbar/network_trafic.sh)"
 
 if ! [ "$network" ]; then
-        network_active="⛔"
+        network_active=" "
         network="Disconnected"
+        net_speed=""
 elif [ "$network" = "wlp2s0" ]; then
         network_active=" "
 elif [ "$network" = "tun0" ]; then
         network_active="😎"
-        interface_easyname="$network"
 else
-        network_active=""
+        network_active=" "
 fi
 
-echo "$network_active $network"
+echo "$network_active $network $ping"

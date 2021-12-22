@@ -24,7 +24,7 @@ set preview true
 set previewer ~/.config/lf/previewer
 set cleaner ~/.config/lf/cleaner
 set icons true
-set hidden
+#set hidden
 
 map x quitcd
 cmd quitcd ${{
@@ -34,10 +34,6 @@ cmd quitcd ${{
 
 # use enter for shell commands
 map <enter> shell
-
-# Ranger's open_with
-cmd open-with %"$@" $fx
-map ` push :open-with<space>
 
 # execute current file (must be executable)
 map x $$f
@@ -50,19 +46,20 @@ map O $mimeopen --ask $f
 # mkdir function
 cmd mkdir %mkdir "$@"
 
-# Open image all images of a folder in sxiv
-cmd sxiv %sxiv *
+# Open image all images of a folder in meh
+cmd meh %meh *
 
 # define a custom 'open' command
 cmd open ${{
     case $(file --mime-type $f -b) in
 	image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
-        text/*) $EDITOR $fx;;
+        text/csv|application/vnd.oasis.opendocument.spreadsheet|application/vnd.ms-excel|application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) sc-im $f ;;
+        text/html) setsid -f surf $f ;;
+        text/*) $EDITOR $fx ;;
 	image/svg+xml) display -- $f ;;
-	image/*) sxiv $f ;;
+	image/*) setsid -f meh $f ;;
         audio/*) mpv --audio-display=no $f ;;
 	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
-	application/pdf|application/vnd*|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
     esac
 }}
 
@@ -88,7 +85,7 @@ cmd trash %set -f; mv $fx ~/.trash
 
 # use '<delete>' key for either 'trash' or 'delete' command
 # map <delete> trash
-# map <delete> delete
+map <delete> delete
 
 # extract the current file with the right command
 # (xkcd link: https://xkcd.com/1168/)

@@ -1,5 +1,7 @@
 #!/bin/sh
 
-temp=$(sensors | awk 'NR==8{print $4}' | sed 's/+//g')
+raw=$(cat /sys/class/thermal/thermal_zone2/temp)
 
-echo " $temp"
+temp=$(( $raw/1000 ))
+
+echo " $temp°C"

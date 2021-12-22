@@ -21,7 +21,7 @@ call plug#begin('/home/fabiosantos/.local/share/vim/plugged')
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
 Plug 'jalvesaq/Nvim-R'
-Plug 'gaalcaras/ncm-R'
+"Plug 'gaalcaras/ncm-R'
 Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'preservim/nerdtree'
 Plug 'Raimondi/delimitMate'
@@ -35,7 +35,7 @@ call plug#end()
 " Set spellcheck language to portuguese
 set spelllang=pt
 
-" Change prompt in diferent modes
+" Change prompt in diferent vim modes
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
 let &t_EI = "\<Esc>[2 q"
@@ -52,9 +52,6 @@ set ttymouse=sgr
 " Set python executable path
 let g:python3_host_prog = "/usr/bin/python3.9"
 
-" Usefull mapings
-map Y y$
-
 " Set a Local Leader
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
@@ -67,7 +64,6 @@ let g:mapleader = ","
 let g:tex_flavor  = 'latex'
 let g:tex_conceal = ''
 let g:vimtex_fold_manual = 1
-"let g:vimtex_latexmk_continuous = 1
 let g:vimtex_compiler_progname = 'nvr'
 let g:vimtex_view_method = 'zathura'
 
@@ -95,8 +91,19 @@ augroup NCM2
             \ })
 augroup END                                                    
                                                     
-" NERD Tree
-map <leader>nn :NERDTreeToggle<CR>                  " Toggle NERD tree.
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => NERDTree
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Uncomment to autostart the NERDTree
+" autocmd vimenter * NERDTree
+" map <leader>nn :NERDTreeToggle<CR>                  " Toggle NERD tree.
+map <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeDirArrowExpandable = '►'
+let g:NERDTreeDirArrowCollapsible = '▼'
+let NERDTreeShowLineNumbers=1
+let NERDTreeShowHidden=1
+let NERDTreeMinimalUI = 1
+let g:NERDTreeWinSize=38
 
 " Monokai-tasty
 let g:vim_monokai_tasty_italic = 1                  " Allow italics.
@@ -104,7 +111,7 @@ let g:vim_monokai_tasty_italic = 1                  " Allow italics.
 " LightLine.vim 
 set laststatus=2                                    " To tell Vim we want to see the statusline.
 let g:lightline = {
-   \ 'colorscheme': 'monokai_tasty',
+   \ 'colorscheme': 'molokai',
    \ }
 
 
@@ -136,7 +143,7 @@ set si                          " To switch on smart indentation.
 " Search
 set ignorecase                  " To ignore case when searching.
 set smartcase                   " When searching try to be smart about cases.
-set hlsearch                    " To highlight search results.
+set hlsearch!                   " To highlight search results.
 set incsearch                   " To make search act like search in modern browsers.
 set magic                       " For regular expressions turn magic on.
 
@@ -157,10 +164,8 @@ syntax enable                   " Enable syntax highlighting.
 set encoding=utf8               " Set utf8 as standard encoding and 
                                 " en_US as the standard language.
 
-" Enable 256 colors palette in Gnome Terminal.
-if $COLORTERM == 'truecolor'
-    set t_Co=256
-endif
+" Enable 256 colors palette
+set t_Co=256
 
 try
     colorscheme desert
@@ -180,3 +185,8 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 " toggle cursorline in insert mode
 "autocmd InsertEnter,InsertLeave * set cul!
+
+" Render documents with Rmarkdown
+autocmd filetype rmd map <F5> :!echo<space>"require(rmarkdown);<space>render('<c-r>%')"<space>\|<space>R<space>--vanilla<enter>
+autocmd filetype rmd inoremap ;r ```{r<space>echo=TRUE}<CR>```<CR><CR><esc>2kO
+autocmd filetype rmd map <F6> :!zathura<space>*.pdf<space>&<enter>

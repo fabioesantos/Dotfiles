@@ -1,5 +1,3 @@
 #!/bin/sh
 
-[ -f ~/.config/X11/xprofile ] && . ~/.config/X11/xprofile
-
-exec /usr/bin/dbus-launch --sh-syntax --exit-with-x11 /usr/bin/dwm
+exec /usr/bin/dwm

@@ -1,24 +1,25 @@
 #!/bin/sh
 
+# Starting some nice programs...
 # This file runs when a DM logs you into a graphical session.
 # If you use startx/xinit like a Chad, this file will also be sourced.
 
-[ ! "$(/tmp/xobpipe)" ] && mkfifo /tmp/xobpipe &
+#xrandr --output HDMI1 --mode 1360x768 --output eDP1 --off &
 
-setxkbmap -layout br &
+/usr/bin/numlockx on &
 
-xrandr --output eDP1 --off --output HDMI1 --mode 1360x768 --primary &
+xwallpaper --stretch $XDG_CONFIG_HOME/X11/wall.jpg &
 
-xrandr --dpi 96 &
+if [ ! $(pidof redshift) ]; then
+        redshift 1>/dev/null 2>/dev/null &
+else
+        killall redshift && redshift 1>/dev/null 2>/dev/null &
+fi
 
-xrdb -merge ~/.config/X11/Xresources &
+picom -c --backend glx --vsync &
 
-xwallpaper --stretch Pictures/Wallpapers/amazing_mountain_milky_way_by_yakub_nihat-wallpaper-1366x768.jpg  &
+dwmblocks 2>/dev/null &
 
-gammastep &
+urxvtd -q -o &
 
-dwmblocks &
-
-xcompmgr -c -f -C -t-5 -l-5 -r4.2 -o.55 &
-
-tail -f /tmp/xobpipe | xob -c ~/.config/xob/style.cfg -s i3 &
+xss-lock -l xlock 2>/dev/null &

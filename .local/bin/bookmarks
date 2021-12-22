@@ -1,10 +1,19 @@
 #!/bin/sh
 
-bookmarks="$(echo 'DuckDuckGo\nTwitch\nYoutube\nStartpage' | dmenu)"
+bookmarks="$(echo 'Homepage\nDuckDuckGo\nStartpage\nTwitch\nYoutube\nTibia Wiki' | dmenu -p 'Search or URL:')"
 
 case $bookmarks in
-        DuckDuckGo) surf start.duckduckgo.com ;;
-        Twitch) surf twitch.tv ;;
-        Youtube) surf youtube.com ;;
-        Startpage) surf startpage.com ;;
+        Homepage) uri="/home/fabiosantos/.local/share/surf/html/homepage.html" ;;
+        DuckDuckGo) uri="start.duckduckgo.com" ;;
+        Startpage) uri="https://www.startpage.com/do/mypage.pl?prfe=619b06c93a91167d082c45e5259e24ce9d7ce2d9fb63c60ffd4221d9098178331c18aca7b46fed8e53164988eb5ae08ade836bdbe924ce479ce15696546201e6ac0ea3a3274ca22ccb9eea2eeebd" ;;
+        Twitch) uri="twitch.tv" ;;
+        Youtube) uri="youtube.com" ;;
+        "Tibia Wiki") uri="https://www.tibiawiki.com.br" ;;
+        *) uri=duckduckgo.com/?q="$bookmarks"
 esac
+
+[ ! "$bookmarks" ] && exit
+
+[ "$(echo $bookmarks | grep '\.')" ] && uri=$bookmarks
+
+$BROWSER "$uri"

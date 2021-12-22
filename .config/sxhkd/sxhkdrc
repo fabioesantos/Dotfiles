@@ -4,13 +4,11 @@
 
 # terminal emulator
 super + Return
-	st
+	$TERMINAL
 
 # program launcher
 super + d
-#        dmenu_run
-#        dmenu_run -i -fn "TerminessTTF Nerd Font:size=1" -nb "#2E3440" -sb "#504477"
-	j4-dmenu-desktop --term='st' --dmenu='dmenu -i -fn "Monofur Nerd Font:size=10" -nb "#222222" -sb "#504477"'
+        rofi -show run
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -52,14 +50,8 @@ super + shift + m
         st -e ncmpcpp
 
 # Suspend/reboot/shutdown the system
-super + shift + s
-        dmenu_prompt 'Do you want suspend?' 'loginctl suspend'
-
 super + shift + r
-        dmenu_prompt 'Do you want reboot?' 'loginctl reboot'
-
-super + shift + p
-        dmenu_prompt 'Do you want poweroff?' 'loginctl poweroff'
+        reboot_comp
 
 #
 # bspwm hotkeys

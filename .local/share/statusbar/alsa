@@ -7,7 +7,7 @@ if [ $(amixer sget Master | awk 'NR==5{print $6}') = "[off]" ]; then
         VOL_ICON="🔇"
         VOLUME="Muted"
 elif [ ! "$headphone" = "OUT" ]; then
-        VOL_ICON=""
+        VOL_ICON=""
 elif [ $VOLUME -lt 30 ]; then
 	VOL_ICON="奄"
 elif [ $VOLUME -lt 60 ]; then

@@ -1,5 +1,7 @@
 # Dotfiles
-My dotfiles
+My linux desktop dotfiles. 
+
+Fell free for use whatever you wish.
 
 Configurantion files for:
 
@@ -7,8 +9,9 @@ Configurantion files for:
 * bspwm
 * mpd
 * oksh
-* asoundrc
-* lf
+* asoundrc (alsa only setup)
+* lf (with image preview using ueberzug library)
 * MangoHud
 * sway
 * Vim
+* Polybar

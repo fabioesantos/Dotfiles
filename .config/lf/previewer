@@ -10,8 +10,6 @@ preview() {
 	EOF
 }
 
-lf-cleaner # clean active preview
-
 file="$1"; shift
 case "$file" in
 *.tar*)
@@ -30,7 +28,7 @@ case "$file" in
         odt2txt "$file"
         ;;
 *.torrent)
-        transmission-show "$file"
+        btinfo "$file"
         ;;
 *.html|*.mhtml)
         html2text "$file"

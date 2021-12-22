@@ -1,6 +1,0 @@
-#!/bin/sh
-
-while true; do
-        xsetroot -name "$($XDG_CONFIG_HOME/dwmstatus/config)"
-        sleep 1
-done
