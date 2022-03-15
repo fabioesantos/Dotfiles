@@ -24,7 +24,7 @@ set preview true
 set previewer ~/.config/lf/previewer
 set cleaner ~/.config/lf/cleaner
 set icons true
-#set hidden
+set hiddenfiles ".*:*.aux:*.bbl:*.bcf:*.blg:*.run.xml:*.toc:*.fls:*.lof:*.lot:*.lgg:*.ltt:*.out:*.fdb_latexmk:*.synctex.gz"
 
 map x quitcd
 cmd quitcd ${{
@@ -46,19 +46,20 @@ map O $mimeopen --ask $f
 # mkdir function
 cmd mkdir %mkdir "$@"
 
-# Open image all images of a folder in meh
-cmd meh %meh *
+# Open all images of a folder in sxiv
+cmd sxiv %sxiv *
 
 # define a custom 'open' command
 cmd open ${{
     case $(file --mime-type $f -b) in
-	image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
+	application/epub*) setsid -f mupdf $fx >/dev/null 2>&1 ;;
+        application/pdf|application/postscript|image/vnd.djvu) setsid -f zathura $fx >/dev/null 2>&1 ;;
         text/csv|application/vnd.oasis.opendocument.spreadsheet|application/vnd.ms-excel|application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) sc-im $f ;;
         text/html) setsid -f surf $f ;;
         text/*) $EDITOR $fx ;;
 	image/svg+xml) display -- $f ;;
-	image/*) setsid -f meh $f ;;
-        audio/*) mpv --audio-display=no $f ;;
+	image/*) setsid -f sxiv $f ;;
+    audio/*) mpv --audio-display=no $f ;;
 	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
     esac
 }}
@@ -119,3 +120,27 @@ cmd zip ${{
     rm -rf $1
 }}
 
+cmd moveto ${{
+	clear; tput cup $(($(tput lines)/3)); tput bold
+	set -f
+	clear; echo "Move to where?"
+	dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' $XDG_CONFIG_HOME/lf/bm-dirs | fzf | sed 's|~|$HOME|')" &&
+	for x in $fx; do
+		eval mv -iv \"$x\" \"$dest\"
+	done &&
+	notify-send " File(s) moved to $dest."
+}}
+
+cmd copyto ${{
+	clear; tput cup $(($(tput lines)/3)); tput bold
+	set -f
+	clear; echo "Copy to where?"
+	dest="$(sed -e 's/\s*#.*//' -e '/^$/d' -e 's/^\S*\s*//' $XDG_CONFIG_HOME/lf/bm-dirs | fzf | sed 's|~|$HOME|')" &&
+	for x in $fx; do
+		eval cp -ivr \"$x\" \"$dest\"
+	done &&
+	notify-send " File(s) copies to $dest."
+}}
+
+map Y copyto
+map D moveto

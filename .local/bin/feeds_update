@@ -1,0 +1,13 @@
+#!/bin/sh
+
+feeds_dir="$XDG_DATA_HOME/sfeed/feeds/"
+
+# G1
+curl -s 'https://g1.globo.com/rss/g1/politica/' | sfeed > $feeds_dir/g1
+
+# RT en español
+curl -s 'https://actualidad.rt.com/feeds/all.rss' | sfeed > $feeds_dir/rt
+
+# Russia Insider
+curl -s 'https://russia-insider.com/en/all-content/rss' | sfeed > $feeds_dir/russia_insider
+

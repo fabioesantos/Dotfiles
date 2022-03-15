@@ -1,17 +1,18 @@
 #!/bin/sh
 
-MPID="$(pidof mpd)"
+mpid="$(pidof mpd)"
 
-[ "$MPID" ] &&
-        INFO="$(mpc | sed 1q)" &&
-        MUSIC="$(mpc | awk 'NR==2{print $3}')"
+[ "$mpid" ] &&
+        info="$(mpc current)" &&
+        music="$(mpc | awk 'NR==2{print $3}')" &&
+        mpdstate="$(mpc | awk -F"[][]" 'NR==2{print $2}')"
 
-if [ -z "$MPID" ]; then
-        STATUS="MPD disconnected"
-elif [ -z "$MUSIC" ]; then
-        STATUS="◼ Stopped"
-else
-        STATUS="🎵 $INFO ($MUSIC)"
-fi
+[ -z "$music" ] && STATUS="■ Stopped"
+
+[ -z "$mpid" ] && STATUS="  MPD off"
+
+[ "$mpdstate" = "paused" ] && STATUS=" $info ($music)"
+
+[ "$mpdstate" = "playing" ] && STATUS=" $info ($music)"
 
 echo " $STATUS"

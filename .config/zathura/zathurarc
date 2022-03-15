@@ -1,9 +1,12 @@
 # Settings {{{1
+
+set window-title-basename "true"
+
 # Open document in fit-width mode by default
 set adjust-open "best-fit"
 
 # Enable copy to clipboard
-set selection-clipboard clipboard
+set selection-clipboard "clipboard"
 
 # One page per row by default
 set pages-per-row 1
@@ -25,7 +28,7 @@ map [fullscreen] <C-h> navigate previous
 map <C-l> navigate next
 map [fullscreen] <C-l> navigate next
 
-set font "TerminessTTF Nerd Font 10"
+set font "mononoki Nerd Font 10"
 # zathurarc-dark
 set notification-error-bg       "#586e75" # base01  # seem not work
 set notification-error-fg       "#dc322f" # red
@@ -54,16 +57,16 @@ set statusbar-bg                "#222222" # base02
 set statusbar-fg                "#93a1a1" # base1
 
 set highlight-color             "#657b83" # base00  # hightlight match when search keyword(vim's /)
-set highlight-active-color      "#268bd2" # blue
+set highlight-active-color      "#6600cc" # blue
 
 #set default-bg "#002b36"
 set default-bg                  "#222222" # base02
 set default-fg                  "#93a1a1" # base1
-# set render-loading              true
-# set render-loading-fg           "#073642" # base02
-# set render-loading-bg           "#073642" # base02
+set render-loading              true
+set render-loading-fg           "#ffffff" # base02
+set render-loading-bg           "#222222" # base02
 
 # Recolor book content's color
-# set recolor                     true
-# set recolor-lightcolor          "#073642" # base02
-# set recolor-darkcolor           "#93a1a1" # base1
+#set recolor                     true
+set recolor-lightcolor          "#222222" # base02
+set recolor-darkcolor           "#eeeeee" # base1

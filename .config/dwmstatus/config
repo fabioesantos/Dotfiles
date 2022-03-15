@@ -1,0 +1,19 @@
+#!/bin/sh
+
+scripts_dir="${HOME}/.local/share/statusbar/"
+
+mpd="$($scripts_dir/mpd)"
+net="$($scripts_dir/network)"
+batt="$($scripts_dir/battery)"
+vol="$($scripts_dir/alsa)"
+mem="$($scripts_dir/memory)"
+cpu="$($scripts_dir/cpu)"
+#time="$($scripts_dir/time)"
+temp="$($scripts_dir/temp)"
+nett="$($scripts_dir/nettraf)"
+mail="$($scripts_dir/mail)"
+date="$($scripts_dir/date)"
+
+delim="|"
+
+echo "$mpd $delim $mail $delim $vol $delim $temp $delim $cpu $delim $mem $delim $net $delim $batt $delim $date"

@@ -63,12 +63,12 @@
                 <div class="bookmark-title">Social & Video</div>
                 <div class="bookmark-inner-container">
                     <a class="bookmark" href="https://youtube.com/" >Youtube</a>
-                    <a class="bookmark" href="https://lbry.tv/" >LBRY</a>
+                    <a class="bookmark" href="https://www.researchgate.net/" >ResearchGate</a>
                     <a class="bookmark" href="https://twitch.tv" >Twitch</a>
                     <a class="bookmark" href="https://gitlab.com/" >GitLab</a>
                     <a class="bookmark" href="https://github.com/fabioesantos" >GitHub</a>
                     <a class="bookmark" href="https://facebook.com" >Facebook</a>
-                    <a class="bookmark" href="https://diasp.org/stream" >Diaspora</a>
+                    <a class="bookmark" href="https://orcid.org/" >ORCID</a>
                     <a class="bookmark" href="https://netflix.com" >Netflix</a>
                 </div>
             </div>
@@ -78,13 +78,11 @@
                     <a class="bookmark" href="https://reddit.com/r/linux" >/r/linux</a>
                     <a class="bookmark" href="https://www.reddit.com/r/Gentoo" >/r/gentoo</a>
                     <a class="bookmark" href="https://reddit.com/r/commandline" >/r/commandline</a>
-                    <a class="bookmark" href="https://reddit.com/r/linux4noobs" >/r/linux4noobs</a>
                     <a class="bookmark" href="https://reddit.com/r/linuxquestions" >/r/linuxquestions</a>
                     <a class="bookmark" href="https://reddit.com/r/linuxmemes" >/r/linuxmemes</a>
                     <a class="bookmark" href="https://reddit.com/r/suckless" >/r/suckless</a>
                     <a class="bookmark" href="https://reddit.com/r/unixporn" >/r/unixporn</a>
                     <a class="bookmark" href="https://reddit.com/r/vim" >/r/vim</a>
-                    <a class="bookmark" href="https://reddit.com/r/emacs" >/r/emacs</a>
                 </div>
             </div>
         </div>
@@ -114,7 +112,7 @@
         window.onload = () => {
             let xhr = new XMLHttpRequest();
             // Request to open weather map
-            xhr.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=Lavras,BR&id=4737316&units=metric&appid=e5b292ae2f9dae5f29e11499c2d82ece');
+            xhr.open('GET', 'http://api.openweathermap.org/data/2.5/weather?q=Piracema,BR&id=4737316&units=metric&appid=e5b292ae2f9dae5f29e11499c2d82ece');
             xhr.onload = () => {
                 if (xhr.readyState === 4) {
                     if (xhr.status === 200) {

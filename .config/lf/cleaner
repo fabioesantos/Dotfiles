@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+[ $WAYLAND_DISPLAY ] && exit
+[ ! $DISPLAY ] && exit
+
 cat <<EOF | paste -s -d '' > "$LF_FIFO_UEBERZUG"
 {
 "action": "remove",

@@ -3,7 +3,7 @@
 cleanup() {
 	# Clean up the tempdir if and only if we created it.
 	if [ "$cleanup_tempdir" = "1" ]; then
-		rm -r "$LF_TEMPDIR" 2>/dev/null
+		/bin/rm -r "$LF_TEMPDIR" 2>/dev/null
 	fi
         pkill -f "tail -f $LF_FIFO_UEBERZUG" # kill tail zombie
 	kill $ueberzugpid 2>/dev/null

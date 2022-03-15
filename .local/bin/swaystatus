@@ -1,3 +1,0 @@
-#!/bin/sh
-
-while ${HOME}/.config/swaystatus/config; do sleep 1; done

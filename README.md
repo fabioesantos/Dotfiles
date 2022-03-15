@@ -1,17 +1,17 @@
 # Dotfiles
-My linux desktop dotfiles. 
+The dotfiles used in my linux desktop. DWM is my default window manager.
 
 Fell free for use whatever you wish.
 
-Configurantion files for:
+## Configurantion files for:
 
-* i3-gaps
-* bspwm
 * mpd
-* oksh
+* mksh
 * asoundrc (alsa only setup)
 * lf (with image preview using ueberzug library)
 * MangoHud
-* sway
 * Vim
-* Polybar
+* Luakit
+* Lynx
+* zathura
+* and more.

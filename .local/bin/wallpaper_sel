@@ -1,7 +1,0 @@
-#!/bin/sh
-
-meh $HOME/Pictures/Wallpaper/* | while read file; do
-                                         cp $file $XDG_CONFIG_HOME/X11/wall.jpg &&
-                                         xwallpaper --stretch $XDG_CONFIG_HOME/X11/wall.jpg &&
-                                         notify-send "  Wallpaper changed!" &
-                                 done

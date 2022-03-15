@@ -1,0 +1,35 @@
+@-moz-document domain('suckless.org') {
+
+body {
+        background-color: #222222 !important;
+        color: #FFFFFF !important;
+}
+
+#header {
+        background-color: #222222 !important;
+        clear: both;
+        color: #8093F9 !important;
+}
+
+#menu {
+        clear: both;
+        color: #869;
+        overflow: hidden;
+        background-color: #17a;
+        padding: 0.7ex;
+        border: 0px !important;
+}
+
+a {
+        color: #8093F9 !important;
+}
+
+#header a {
+        color: #8093F9 !important;
+}
+
+#menu a {
+        color: #F8F8F2 !important;
+}
+
+}

@@ -1,56 +1,70 @@
 #!/usr/bin/env sh
 
 preview() {
-	cat <<-EOF | paste -sd '' >"$LF_FIFO_UEBERZUG"
+if [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
+        cat <<-EOF | paste -sd '' >"$LF_FIFO_UEBERZUG"
 	{
 	"action": "add", "identifier": "lf-preview",
 	"path": "$1", "x": $4, "y": $5, "width": $2, "height": $3,
 	"scaler": "contain"
 	}
 	EOF
+else
+        chafa "$1" -s "$4x"
+fi
 }
 
+mimetype="$( file --dereference --brief --mime-type -- "$1" )"
+
+# Settings for highlight
+HIGHLIGHT_SIZE_MAX=262143  # 256KiB
+HIGHLIGHT_TABWIDTH=8
+HIGHLIGHT_STYLE='base16/unikitty-dark'
+highlight_format='truecolor'
+
+
 file="$1"; shift
-case "$file" in
-*.tar*)
+case "$mimetype" in
+application/gzip | application/x-xz | application/x-bzip2 | application/x-lzma | application/x-tar)
         tar tf "$file"
         ;;
-*.zip)
+application/zip)
         unzip -l "$file"
         ;;
-*.rar)
+application/x-rar)
         unrar l "$file"
         ;;
-*.7z)
+application/x-7z-compressed)
         7z l "$file"
         ;;
-*.ods|*.odt|*.odp)
+*opendocument*)
         odt2txt "$file"
         ;;
-*.torrent)
-        btinfo "$file"
+*torrent)
+        transmission-show "$file"
         ;;
-*.html|*.mhtml)
-        html2text "$file"
-        ;;
-*.avi|*.mp4|*.mkv|*.webm)
+video/*)
 	thumbnail="$LF_TEMPDIR/thumbnail.png"
 	ffmpeg -y -i "$file" -vframes 1 "$thumbnail"
 	preview "$thumbnail" "$@"
 	;;
-*.pdf|*.ps)
+*/pdf | */postscript)
 	thumbnail="$LF_TEMPDIR/thumbnail.png"
 	gs -o "$thumbnail" -sDEVICE=pngalpha -dLastPage=1 "$file" >/dev/null
 	preview "$thumbnail" "$@"
 	;;
-*.tiff|*.eps|*.jpg|*.jpeg|*.png|*.bmp)
-	preview "$file" "$@" ;;
-*.svg)
-	thumbnail="$LF_TEMPDIR/thumbnail.png"
-	convert "$file" "$thumbnail"
-	preview "$thumbnail" "$@"
-	;;
-*) highlight -O ansi "$file" || cat "$1" ;;
-
+image/*)
+	preview "$file" "$@"
+        ;;
+audio/*) mediainfo "$file"
+        ;;
+text/html) lynx -dump "$file"
+        ;;
+text/* | */xml)
+        highlight --replace-tabs="${HIGHLIGHT_TABWIDTH}" --out-format="${highlight_format}" \
+                --style="${HIGHLIGHT_STYLE}" --force -- "$file" || cat "$1"
+        ;;
+*) echo $mimetype ;;
 esac
+
 return 127 # nonzero retcode required for lf previews to reload

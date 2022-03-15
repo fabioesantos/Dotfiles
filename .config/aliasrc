@@ -1,8 +1,0 @@
-# Aliases for the shell
-
-#alias su="su && cp /home/fabiosantos/.Xauthority /root/.Xauthority"
-alias ls="ls -hNF --color=auto --group-directories-first"
-alias la="ls -a"
-alias ll="ls -l"
-alias lo="ls -alo"
-alias grep="grep --color"

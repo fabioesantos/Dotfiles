@@ -1,19 +1,25 @@
 #!/bin/sh
 
-network=$(ip route get 1.1.1.1 | grep -Po '(?<=dev\s)\w+') 2>/dev/null 
-ping="("$(ping -c 1 1.1.1.1 | tail -1 | awk '{print $4}' | cut -d '/' -f 2 | cut -d '.' -f 1)" ms)"
-#net_speed="$($XDG_DATA_HOME/statusbar/network_trafic.sh)"
+network=$(ip route get 1.1.1.1 | grep -Po '(?<=dev\s)\w+') 2>/dev/null
+network_active=" "
 
-if ! [ "$network" ]; then
-        network_active=" "
-        network="Disconnected"
-        net_speed=""
-elif [ "$network" = "wlp2s0" ]; then
-        network_active=" "
-elif [ "$network" = "tun0" ]; then
-        network_active="😎"
-else
-        network_active=" "
-fi
+[ $network = "wlan0" ] && network_active=" "
 
-echo "$network_active $network $ping"
+[ $network = "eth0" ] && network_active=" "
+
+update() {
+    sum=0
+    for arg; do
+        read -r i < "$arg"
+        sum=$(( sum + i ))
+    done
+    cache=$XDG_CACHE_HOME/nettraf/${1##*/}
+    [ -f "$cache" ] && read -r old < "$cache" || old=0
+    printf %d\\n "$sum" > "$cache"
+    printf %d\\n $(( sum - old ))
+}
+
+rx=$(update /sys/class/net/[ew]*/statistics/rx_bytes)
+tx=$(update /sys/class/net/[ew]*/statistics/tx_bytes)
+
+printf "$network_active %4sB %4sB\\n" $(numfmt --to=iec $rx) $(numfmt --to=iec $tx)

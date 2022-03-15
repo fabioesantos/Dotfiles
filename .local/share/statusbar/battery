@@ -3,13 +3,15 @@
 BATTERY=$(cat /sys/class/power_supply/BAT1/capacity)
 STATUS=$(cat /sys/class/power_supply/BAT1/status)
 
-BATTERY_INFO=" $BATTERY%"
+[ $STATUS = "Discharging" ] && BATTERY_INFO=" $BATTERY%"
 
-[ "$STATUS" = "Charging" ] && BATTERY_INFO=" $BATTERY%"
+[ $STATUS = "Charging" ] && BATTERY_INFO=" $BATTERY%"
 
-[ "$STATUS" = "Full" ] && BATTERY_INFO=" $BATTERY%"
+[ $STATUS = "Full" ] && BATTERY_INFO=" $BATTERY%"
+
+[ $STATUS = "Unknown" ] && BATTERY_INFO=" $BATTERY%"
 
 # Low Battery warning
-[ "$BATTERY" = "10" ] && notify-send "    Low Battery 10%" --icon=battery-caution
+[ "$BATTERY" = "10" ] && notify-send "    Low Battery 10%"
 
 echo "$BATTERY_INFO"

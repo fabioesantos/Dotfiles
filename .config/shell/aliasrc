@@ -1,0 +1,24 @@
+# Aliases for the shell
+
+# use exa as ls
+alias ls='exa -nF --color=always --group-directories-first' 
+alias la='exa -nFa --color=always --group-directories-first'
+alias ll='exa -nFl --color=always --group-directories-first'
+alias lo='exa -nFal --color=always --group-directories-first'
+
+# use colors in grep and diff
+alias grep='grep --color=auto'
+alias diff="diff --color=auto"
+
+# confirm before overwriting something
+alias cp="cp -iv"
+alias mv='mv -iv'
+alias rm='rm -iv'
+
+alias lynx='lynx -cfg=$HOME/.config/lynx/lynx.cfg -lss=$HOME/.config/lynx/lynx.lss'
+
+alias startx='startx "$XINITRC" -- "$XSERVERRC" vt1'
+
+alias weather='curl -sf wttr.in/Piracema,BR'
+
+# vim: filetype=sh

@@ -1,0 +1,131 @@
+#!/bin/sh
+
+# Set location of kshrc file
+export ENV="${HOME}/.config/mksh/mkshrc"
+
+# Add '~/.local/bin' to $PATH
+export PATH="${HOME}/.local/bin:/home/fabiosantos/.local/share/cargo/bin:${PATH}"
+
+# Set bat as manpager
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# Make sure iris driver is used
+export MESA_LOADER_DRIVER_OVERRIDE="iris"
+
+# Choose vaapi driver (i965 or iHD)
+export LIBVA_DRIVER_NAME="i965"
+
+# Default programs:
+export BROWSER="/usr/bin/surf"
+export READER="zathura"
+export TERMINAL="st"
+
+# XDG Defaults
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+
+# Cleaning $HOME
+export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
+export XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc"
+export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
+export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
+export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export GOPATH="$XDG_DATA_HOME/go"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
+export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+export VIMINIT="set nocp | source ${XDG_CONFIG_HOME}/vim/vimrc"
+export INPUTRC="$HOME/.config/inputrc"
+export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch/config"
+export MBSYNCRC="$XDG_CONFIG_HOME/mbsync/config"
+
+# GCC colors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# Enable the vulkan post processing layer
+export ENABLE_VKBASALT=1
+
+# Icons for lf
+export LF_ICONS="di=📁:\
+fi=📃:\
+tw=🤝:\
+ow=📂:\
+ln=⛓ :\
+or=❌:\
+ex=🎯:\
+pi=🎷:\
+so=🖇️ :\
+*.txt=✍ :\
+*.mom=✍ :\
+*.me=✍ :\
+*.ms=✍ :\
+*.png=🖼 :\
+*.webp=🖼 :\
+*.ico=🖼 :\
+*.jpg=📸:\
+*.jpe=📸:\
+*.jpeg=📸:\
+*.gif=🖼 :\
+*.svg=🗺:\
+*.tif=🖼 :\
+*.tiff=🖼 :\
+*.xcf=🖌:\
+*.html=🌎:\
+*.xml=📰:\
+*.gpg=🔒:\
+*.css=🎨:\
+*.pdf=📚:\
+*.djvu=📚:\
+*.epub=📚:\
+*.csv=📓:\
+*.xlsx=📓:\
+*.tex=📜:\
+*.md=📘:\
+*.r=📊:\
+*.R=📊:\
+*.rmd=📊:\
+*.Rmd=📊:\
+*.m=📊:\
+*.mp3=🎵:\
+*.opus=🎵:\
+*.ogg=🎵:\
+*.m4a=🎵:\
+*.flac=🎼:\
+*.wav=🎼:\
+*.mkv=🎥:\
+*.mp4=🎥:\
+*.webm=🎥:\
+*.mpeg=🎥:\
+*.avi=🎥:\
+*.mov=🎥:\
+*.mpg=🎥:\
+*.wmv=🎥:\
+*.m4b=🎥:\
+*.flv=🎥:\
+*.zip=📦:\
+*.rar=📦:\
+*.7z=📦:\
+*.gz=📦:\
+*.z64=🎮:\
+*.v64=🎮:\
+*.n64=🎮:\
+*.gba=🎮:\
+*.nes=🎮:\
+*.gdi=🎮:\
+*.nfo=ℹ :\
+*.info=ℹ :\
+*.log=📙:\
+*.iso=📀:\
+*.img=📀:\
+*.bib=🎓:\
+*.ged=👪:\
+*.part=💔:\
+*.torrent=🔽:\
+*.jar=♨:\
+*.java=♨:\
+"
+# vim: filetype=sh

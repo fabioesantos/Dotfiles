@@ -1,5 +1,5 @@
 #!/bin/sh
 
-CPU="$(top -bn1 | grep "%Cpu(s)" | awk '{printf "%.2f\n", $(2)}')"
+cpu="$(top -bn1 | grep "%Cpu(s)" | awk '{printf "%.2f\n", $(2)}')"
 
-echo "﬙ $CPU%"
+echo "﬙ $cpu%"

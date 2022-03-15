@@ -1,0 +1,8 @@
+#!/bin/sh
+
+choosen="$(echo 'Reboot\nPoweroff' | dmenu -p 'Power Menu:')"
+
+case $choosen in
+        Reboot) doas -n /sbin/shutdown -r now ;;
+        Poweroff) doas -n /sbin/shutdown -P now ;;
+esac

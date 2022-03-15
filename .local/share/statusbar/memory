@@ -1,6 +1,6 @@
 #!/bin/sh
 
-MEMORY=$(free -m | awk 'NR==2{print $3}')
+memory=$(free -m | awk 'NR==2{print $3}')
 
-echo "" $MEMORY"M"
+echo "" $memory"M"
 

@@ -10,9 +10,9 @@
 #            >  <| | | | | | |_| | | (__
 #           /_/\_\_|_| |_|_|\__|_|  \___|
 #
-
+#
 # redirect errors to a file in user's home directory
-for errfile in "$HOME/.local/share/xorg/xsession-errors" "${TMPDIR-/tmp}/xses-$USER" "/tmp/xses-$USER"
+for errfile in "$HOME/.cache/X11/xsession-errors"
 do
 	if ( cp /dev/null "$errfile" 2> /dev/null )
 	then
@@ -22,13 +22,16 @@ do
 	fi
 done
 
-userprofile="$XDG_CONFIG_HOME/X11/xprofile"
-#userresources="$XDG_CONFIG_HOME/X11/Xresources"
 userkbmap="$XDG_CONFIG_HOME/X11/xkbmap"
+userprofile="$XDG_CONFIG_HOME/X11/xprofile"
+userresources="$XDG_CONFIG_HOME/X11/Xresources"
+usermodmap="$XDG_CONFIG_HOME/X11/Xmodmap"
 
-[ -f "$userprofile" ] && . $userprofile
-#[ -f "$userresources" ] && xrdb -merge $userresources
-[ -f "$userkbmap" ] && setxkbmap -layout $(cat $userkbmap)
-
-# Start session in xsession file
-. ~/.config/X11/xsession
+[ -f $userprofile ] && . $userprofile
+[ -f $userresources ] && xrdb -load $userresources
+[ -f $userkbmap ] && setxkbmap -layout $(cat $userkbmap)
+[ -f $usermodmap ] && xmodmap $usermodmap
+ 
+# Start session in XSESSION variable or xsession file
+[ $XSESSION ] && exec $XSESSION
+[ -f $XDG_CONFIG_HOME/X11/xsession ] && . $XDG_CONFIG_HOME/X11/xsession

@@ -1,8 +1,0 @@
-# set -A complete_emerge --ask --update --deep --depclean --sync --newuse --quiet --pretend --help @system @world
-set -A complete_eselect_1 -- arptables binutils ebtables editor env fontconfig gcc iptables kernel locale lua modules news pager pinentry profile rc repository ruby rust sh vi visual
-set -A complete_eselect_2 -- list set show
-set -A complete_doas_1 -- $(dmenu_path)
-set -A complete_equery -- belongs changes check depends depgraph files has hasuse keywords list meta size uses which
-set -A complete_btrfs_1 -- balance device filesystem inspect-internal property qgroup quota replace rescue scrub subvolume
-set -A complete_git_1 -- commit pull push fetch tag switch add clone init mv restore rm sparse-checkout bisect diff grep log show status branch merge rebase reset switch
-set -A complete_repoman -- manifest
