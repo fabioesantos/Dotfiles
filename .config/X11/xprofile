@@ -10,12 +10,20 @@
 
 xwallpaper --stretch $XDG_CONFIG_HOME/X11/wall.jpg &
 
+[ $(pidof redshift) ] && pkill -KILL redshift
+
 redshift 1>/dev/null 2>/dev/null &
 
-xcompmgr &
+#xcompmgr &
 
-xset r rate 300 50 &
+picom --experimental-backends &
 
-#xss-lock locker 2>/dev/null &
+dwmblocks &
+
+xvattr -a XV_SYNC_TO_VBLANK -v 0
+
+#xss-lock slock 2>/dev/null &
+
+[ $(pidof xob) ] && pkill -KILL xob && pkill -KILL tail
 
 tail -f /tmp/xobpipe | xob -s gentoo &

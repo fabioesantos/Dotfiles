@@ -7,19 +7,14 @@ network_active=" "
 
 [ $network = "eth0" ] && network_active=" "
 
-update() {
-    sum=0
-    for arg; do
-        read -r i < "$arg"
-        sum=$(( sum + i ))
-    done
-    cache=$XDG_CACHE_HOME/nettraf/${1##*/}
-    [ -f "$cache" ] && read -r old < "$cache" || old=0
-    printf %d\\n "$sum" > "$cache"
-    printf %d\\n $(( sum - old ))
-}
+[ $network = "usb0" ] && network_active=" "
 
-rx=$(update /sys/class/net/[ew]*/statistics/rx_bytes)
-tx=$(update /sys/class/net/[ew]*/statistics/tx_bytes)
 
-printf "$network_active %4sB %4sB\\n" $(numfmt --to=iec $rx) $(numfmt --to=iec $tx)
+ping=$(ping -c 1 www.google.com | tail -1| awk '{print $4}' | cut -d '/' -f 2 | cut -d '.' -f 1)ms
+
+
+if [ ! $network ]; then
+        echo "$network_active Disconnected"
+else
+        echo "$network_active $network $ping"
+fi

@@ -6,4 +6,6 @@ else
         echo $(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/') >> /tmp/xobpipe
 fi
 
-kill "$(pstree -lp | grep -- -dwmstatus\([0-9] | sed "s/.*sleep(\([0-9]\+\)).*/\1/")"
+pkill -RTMIN+10 dwmblocks
+
+#kill "$(pstree -lp | grep -- -dwmstatus\([0-9] | sed "s/.*sleep(\([0-9]\+\)).*/\1/")"

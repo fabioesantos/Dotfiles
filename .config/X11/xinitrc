@@ -12,7 +12,7 @@
 #
 #
 # redirect errors to a file in user's home directory
-for errfile in "$HOME/.cache/X11/xsession-errors"
+for errfile in "$XDG_CACHE_HOME/X11/xsession-errors"
 do
 	if ( cp /dev/null "$errfile" 2> /dev/null )
 	then
@@ -22,14 +22,12 @@ do
 	fi
 done
 
-userkbmap="$XDG_CONFIG_HOME/X11/xkbmap"
 userprofile="$XDG_CONFIG_HOME/X11/xprofile"
 userresources="$XDG_CONFIG_HOME/X11/Xresources"
 usermodmap="$XDG_CONFIG_HOME/X11/Xmodmap"
 
 [ -f $userprofile ] && . $userprofile
 [ -f $userresources ] && xrdb -load $userresources
-[ -f $userkbmap ] && setxkbmap -layout $(cat $userkbmap)
 [ -f $usermodmap ] && xmodmap $usermodmap
  
 # Start session in XSESSION variable or xsession file

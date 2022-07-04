@@ -1,70 +1,83 @@
-#!/usr/bin/env sh
+#!/bin/sh
+
+# File preview handler for lf.
+
+set -C -f
+IFS="$(printf '%b_' '\n')"; IFS="${IFS%_}"
 
 preview() {
-if [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
-        cat <<-EOF | paste -sd '' >"$LF_FIFO_UEBERZUG"
-	{
-	"action": "add", "identifier": "lf-preview",
-	"path": "$1", "x": $4, "y": $5, "width": $2, "height": $3,
-	"scaler": "contain"
-	}
-	EOF
-else
-        chafa "$1" -s "$4x"
-fi
+	if [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ] && command -V ueberzug >/dev/null 2>&1; then
+		printf '{"action": "add", "identifier": "PREVIEW", "x": "%s", "y": "%s", "width": "%s", "height": "%s", "scaler": "contain", "path": "%s"}\n' "$4" "$5" "$(($2-1))" "$(($3-1))" "$1" > "$FIFO_UEBERZUG"
+	else
+		chafa "$1" -s "$4x"
+	fi
 }
 
-mimetype="$( file --dereference --brief --mime-type -- "$1" )"
+ifub() {
+	[ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ] && command -V ueberzug >/dev/null 2>&1
+}
 
-# Settings for highlight
-HIGHLIGHT_SIZE_MAX=262143  # 256KiB
-HIGHLIGHT_TABWIDTH=8
-HIGHLIGHT_STYLE='base16/unikitty-dark'
-highlight_format='truecolor'
+# Settings for bat 
+BAT_THEME="Dracula"
+BAT_STYLE="plain"
 
 
-file="$1"; shift
-case "$mimetype" in
+case "$(file --dereference --brief --mime-type -- "$1")" in
 application/gzip | application/x-xz | application/x-bzip2 | application/x-lzma | application/x-tar)
-        tar tf "$file"
+        tar tf "$1"
         ;;
 application/zip)
-        unzip -l "$file"
+        unzip -l "$1"
         ;;
 application/x-rar)
-        unrar l "$file"
+        unrar l "$1"
         ;;
 application/x-7z-compressed)
-        7z l "$file"
+        7z l "$1"
         ;;
 *opendocument*)
-        odt2txt "$file"
+        odt2txt "$1"
+        ;;
+        text/troff) man ./ "$1" | col -b
         ;;
 *torrent)
-        transmission-show "$file"
+        transmission-show "$1"
         ;;
 video/*)
-	thumbnail="$LF_TEMPDIR/thumbnail.png"
-	ffmpeg -y -i "$file" -vframes 1 "$thumbnail"
-	preview "$thumbnail" "$@"
+    CACHE="$XDG_CACHE_HOME/lf/thumb.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}')"
+	[ ! -f "$CACHE" ] && ffmpegthumbnailer -i "$1" -o "$CACHE" -s 0
+	preview "$CACHE" "$2" "$3" "$4" "$5"
 	;;
-*/pdf | */postscript)
-	thumbnail="$LF_TEMPDIR/thumbnail.png"
-	gs -o "$thumbnail" -sDEVICE=pngalpha -dLastPage=1 "$file" >/dev/null
-	preview "$thumbnail" "$@"
+*/pdf)
+	CACHE="$XDG_CACHE_HOME/lf/thumb.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}')"
+	[ ! -f "$CACHE.jpg" ] && pdftoppm -jpeg -f 1 -singlefile "$1" "$CACHE"
+	preview "$CACHE.jpg" "$2" "$3" "$4" "$5"
 	;;
+*/postscript)
+	CACHE="$XDG_CACHE_HOME/lf/thumb.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}')"
+	[ ! -f "$CACHE" ] && gs -o "$CACHE" -sDEVICE=pngalpha -dLastPage=1 "$1" >/dev/null
+	preview "$CACHE" "$2" "$3" "$4" "$5"
+	;;
+image/svg+xml)
+        CACHE="$XDG_CACHE_HOME/lf/thumb.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}')"
+	[ ! -f "$CACHE.jpg" ] && magick "$1" "$CACHE.jpg"
+	preview "$CACHE.jpg" "$2" "$3" "$4" "$5"
+        ;;
 image/*)
-	preview "$file" "$@"
+	preview "$1" "$2" "$3" "$4" "$5"
         ;;
-audio/*) mediainfo "$file"
+audio/*) mediainfo "$1"
         ;;
-text/html) lynx -dump "$file"
+text/html) lynx -width="$4" -display_charset=utf-8 -dump "$1"
         ;;
 text/* | */xml)
-        highlight --replace-tabs="${HIGHLIGHT_TABWIDTH}" --out-format="${highlight_format}" \
-                --style="${HIGHLIGHT_STYLE}" --force -- "$file" || cat "$1"
+        bat --theme "$BAT_THEME" --style "$BAT_STYLE" --terminal-width "$4" -f "$1"
         ;;
-*) echo $mimetype ;;
+application/pgp-encrypted)
+        gpg -d -- "$1"
+        ;;
+*)
+        file --dereference --brief --mime-type -- "$1"
+        ;;
 esac
-
-return 127 # nonzero retcode required for lf previews to reload
+exit 1

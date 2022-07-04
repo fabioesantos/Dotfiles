@@ -19,6 +19,10 @@ alias lynx='lynx -cfg=$HOME/.config/lynx/lynx.cfg -lss=$HOME/.config/lynx/lynx.l
 
 alias startx='startx "$XINITRC" -- "$XSERVERRC" vt1'
 
-alias weather='curl -sf wttr.in/Piracema,BR'
+alias weather='curl -sf wttr.in/Belo-Horizonte,BR'
+
+alias nvim='nvim -u ~/.config/nvim/init.vim'
+
+alias neo='neo --charset=english -D'
 
 # vim: filetype=sh

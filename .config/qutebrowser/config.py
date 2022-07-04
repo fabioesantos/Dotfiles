@@ -83,6 +83,10 @@ config.set('content.cookies.accept', 'all', 'chrome-devtools://*')
 #   - never: Don't accept cookies at all.
 config.set('content.cookies.accept', 'all', 'devtools://*')
 
+# Turn on Dark Mode
+#config.set("colors.webpage.darkmode.enabled", True)
+
+
 # Value to send in the `Accept-Language` header. Note that the value
 # read from JavaScript is always the global value.
 # Type: String

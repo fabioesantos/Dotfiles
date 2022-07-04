@@ -24,7 +24,7 @@ set preview true
 set previewer ~/.config/lf/previewer
 set cleaner ~/.config/lf/cleaner
 set icons true
-set hiddenfiles ".*:*.aux:*.bbl:*.bcf:*.blg:*.run.xml:*.toc:*.fls:*.lof:*.lot:*.lgg:*.ltt:*.out:*.fdb_latexmk:*.synctex.gz"
+set hiddenfiles ".*:*.aux:*.bbl:*.bcf:*.blg:*.run.xml:*.toc:*.fls:*.lof:*.lot:*.lgg:*.ltt:*.out:*.fdb_latexmk"
 
 map x quitcd
 cmd quitcd ${{
@@ -52,14 +52,15 @@ cmd sxiv %sxiv *
 # define a custom 'open' command
 cmd open ${{
     case $(file --mime-type $f -b) in
-	application/epub*) setsid -f mupdf $fx >/dev/null 2>&1 ;;
+        application/epub*) setsid -f mupdf $fx >/dev/null 2>&1 ;;
         application/pdf|application/postscript|image/vnd.djvu) setsid -f zathura $fx >/dev/null 2>&1 ;;
         text/csv|application/vnd.oasis.opendocument.spreadsheet|application/vnd.ms-excel|application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) sc-im $f ;;
-        text/html) setsid -f surf $f ;;
-        text/*) $EDITOR $fx ;;
-	image/svg+xml) display -- $f ;;
-	image/*) setsid -f sxiv $f ;;
-    audio/*) mpv --audio-display=no $f ;;
+        text/html) setsid -f $BROWSER $f ;;
+        text/*|application/octet-stream) $EDITOR $fx ;;
+        image/svg+xml) display -- $f ;;
+#        image/*) setsid -f imv $f ;;
+        image/*) setsid -f nsxiv $f ;;
+        audio/*) mpv --audio-display=no $f ;;
 	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
     esac
 }}

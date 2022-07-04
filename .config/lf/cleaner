@@ -1,11 +1,8 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 [ $WAYLAND_DISPLAY ] && exit
 [ ! $DISPLAY ] && exit
 
-cat <<EOF | paste -s -d '' > "$LF_FIFO_UEBERZUG"
-{
-"action": "remove",
-"identifier": "lf-preview"
-}
-EOF
+if [ -n "$FIFO_UEBERZUG" ]; then
+	printf '{"action": "remove", "identifier": "PREVIEW"}\n' > "$FIFO_UEBERZUG"
+fi

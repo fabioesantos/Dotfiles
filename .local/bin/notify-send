@@ -80,7 +80,7 @@ parse "$@"
 eval set -- "$REST"
 
 if [ $WAYLAND_DISPLAY ]; then
-        wayherb "$@" &
+        /usr/bin/notify-send "$@" &
 else
         herbe "$@" &
 fi

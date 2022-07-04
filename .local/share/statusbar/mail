@@ -4,4 +4,6 @@ unread="$(find $XDG_DATA_HOME/mail/*/[Ii][Nn][Bb][Oo][Xx]/new/* -type f 2>/dev/n
 
 [ $(pidof mbsync) ] && icon=" ﮮ"
 
+[ $(pidof mpop) ] && icon=" ﮮ"
+
 echo " $unread$icon"

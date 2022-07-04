@@ -1,0 +1,22 @@
+#!/bin/sh
+
+bookmarks="$(echo 'Homepage\nDuckDuckGo\nStartpage\nTwitch\nYoutube\nPPGBC-UFMG\nTransmission Web\nTibia Wiki\nSci-Hub' | rofi -dmenu -p 'Search or URL')"
+
+case $bookmarks in
+        Homepage) uri="/home/fabiosantos/.local/share/surf/html/homepage.html" ;;
+        DuckDuckGo) uri="start.duckduckgo.com" ;;
+        Startpage) uri="https://www.startpage.com/do/mypage.pl?prfe=619b06c93a91167d082c45e5259e24ce9d7ce2d9fb63c60ffd4221d9098178331c18aca7b46fed8e53164988eb5ae08ade836bdbe924ce479ce15696546201e6ac0ea3a3274ca22ccb9eea2eeebd" ;;
+        Twitch) uri="twitch.tv" ;;
+        Youtube) uri="youtube.com" ;;
+        PPGBC-UFMG) uri="http://www.pgbiologiacelular.icb.ufmg.br/index.php" ;;
+        "Transmission Web") uri="http://127.0.0.1:9091/transmission/web/" ;;
+        "Tibia Wiki") uri="https://www.tibiawiki.com.br" ;;
+        Sci-Hub) uri="https://www.sci-hub.st/" ;;
+        *) uri=https://duckduckgo.com/?q="$bookmarks"
+esac
+
+[ ! "$bookmarks" ] && exit
+
+[ "$(echo $bookmarks | grep '\.')" ] && uri=$bookmarks
+
+$BROWSER "$uri"

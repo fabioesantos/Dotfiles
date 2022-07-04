@@ -1,3 +1,4 @@
 ! Caps lock to escape
-clear lock
-keycode 66 = Escape Caps_Lock NoSymbol NoSymbol
+!clear lock
+!keycode 66 = Escape
+!keycode 66 = Escape Caps_Lock NoSymbol NoSymbol

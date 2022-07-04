@@ -1,4 +1,4 @@
-" Show word count in latex files
+" Show word count in statusline for latex files
 set statusline+=\ [%{WordCount()}\ words]
 
 " Live word count
@@ -13,20 +13,20 @@ function WordCount()
 endfunction
 
 "------------ 
-set errorformat=%f:%l:%c:%m 
-function Latex() 
-    update 
-    let file=expand('%:t:r') 
-    let errors=system('compiler '.file.'.tex | latex-errorfilter') 
-    if errors=="" 
-        echo 'LaTeX ok: No warning/error' 
-    else 
-        cexpr errors 
-    endif 
-endfunction 
+"set errorformat=%f:%l:%c:%m 
+"function Latex() 
+"    update 
+"    let file=expand('%:t:r') 
+"    let errors=system('compiler '.file.'.tex | latex-errorfilter.awk') 
+"    if errors=="" 
+"        echo 'LaTeX ok: No warning/error' 
+"    else 
+"        cexpr errors 
+"    endif 
+"endfunction 
 
-map <F5> :call Latex()<CR> 
-map <F7> :cprev<CR> 
-map <F8> :cnext<CR> 
-map <F9> :clist<CR>
+"map <F5> :call Latex()<CR> 
+"map <F7> :cprev<CR> 
+"map <F8> :cnext<CR> 
+"map <F9> :clist<CR>
 "------------ 

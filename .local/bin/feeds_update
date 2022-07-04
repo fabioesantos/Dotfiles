@@ -11,3 +11,4 @@ curl -s 'https://actualidad.rt.com/feeds/all.rss' | sfeed > $feeds_dir/rt
 # Russia Insider
 curl -s 'https://russia-insider.com/en/all-content/rss' | sfeed > $feeds_dir/russia_insider
 
+notify-send " feeds updated!"

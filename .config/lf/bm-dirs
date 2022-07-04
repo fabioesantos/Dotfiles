@@ -3,6 +3,7 @@ cac $XDG_CACHE_HOME
 cf  $XDG_CONFIG_HOME
 D   $HOME/Downloads
 d   $HOME/Documents
+d   $HOME/Documents/Unix
 dt  $XDG_DATA_HOME
 rr  $HOME/.local/src
 h   $HOME
