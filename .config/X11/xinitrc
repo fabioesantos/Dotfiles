@@ -24,11 +24,9 @@ done
 
 userprofile="$XDG_CONFIG_HOME/X11/xprofile"
 userresources="$XDG_CONFIG_HOME/X11/Xresources"
-usermodmap="$XDG_CONFIG_HOME/X11/Xmodmap"
 
 [ -f $userprofile ] && . $userprofile
 [ -f $userresources ] && xrdb -load $userresources
-[ -f $usermodmap ] && xmodmap $usermodmap
  
 # Start session in XSESSION variable or xsession file
 [ $XSESSION ] && exec $XSESSION

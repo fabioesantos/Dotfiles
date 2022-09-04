@@ -1,5 +1,11 @@
 #!/bin/sh
 
+case $BLOCK_BUTTON in
+	1) mpc toggle ;;
+	2) "$TERMINAL" -e "$EDITOR" "$0" ;;
+	3) "$TERMINAL" -e ncmpcpp ;;
+esac
+
 mpid="$(pidof mpd)"
 
 [ "$mpid" ] &&

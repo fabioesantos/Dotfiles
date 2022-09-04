@@ -6,10 +6,9 @@ Fell free for use whatever you wish.
 ## Configurantion files for:
 
 * mpd
-* loksh
+* mksh
 * asoundrc (alsa only setup)
 * lf (with image preview using ueberzug library)
-* MangoHud
 * Vim
 * BSPWM
 * Qutebrowser

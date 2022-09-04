@@ -49,7 +49,7 @@ case "$ext" in
 			pandoc -t ms --highlight-style=kate -s -o "$base".pdf "$file"
 		fi ; ;;
 	mom) preconv "$file" | refer -PS -e -p ref.ms | groff -mom -kept -T pdf > "$base".pdf ;;
-	ms) preconv "$file" | refer -PS -e -p ref.ms| groff -me -ms -kept -T ps > "$base".ps ;;
+	ms) preconv "$file" | groff -me -ms -kept -T ps > "$base".ps ;;
 	org) emacs "$file" --batch -u "$USER" -f org-latex-export-to-pdf ;;
 	py) python "$file" ;;
 	[rR]md) Rscript -e "rmarkdown::render('$file', quiet=TRUE)" ;;

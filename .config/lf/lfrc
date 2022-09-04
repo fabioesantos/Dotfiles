@@ -47,7 +47,8 @@ map O $mimeopen --ask $f
 cmd mkdir %mkdir "$@"
 
 # Open all images of a folder in sxiv
-cmd sxiv %sxiv *
+cmd img %nsxiv *
+map <c-a> img
 
 # define a custom 'open' command
 cmd open ${{
@@ -57,9 +58,9 @@ cmd open ${{
         text/csv|application/vnd.oasis.opendocument.spreadsheet|application/vnd.ms-excel|application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) sc-im $f ;;
         text/html) setsid -f $BROWSER $f ;;
         text/*|application/octet-stream) $EDITOR $fx ;;
+        inode/symlink) $EDITOR $fx ;;
         image/svg+xml) display -- $f ;;
-#        image/*) setsid -f imv $f ;;
-        image/*) setsid -f nsxiv $f ;;
+        image/*) setsid -f xdg-open $f ;;
         audio/*) mpv --audio-display=no $f ;;
 	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
     esac

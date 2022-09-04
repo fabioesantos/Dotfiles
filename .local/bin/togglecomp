@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ $(pgrep xcompmgr &>/dev/null) ]; then
+    notify-send "Turning xcompmgr OFF"
+    pkill xcompmgr &
+else
+    notify-send "Turning xcompmgr ON"
+    xcompmgr &
+fi
+
+exit 0

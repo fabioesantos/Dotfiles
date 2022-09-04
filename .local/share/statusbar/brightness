@@ -1,17 +1,23 @@
 #!/bin/sh
 
+case $BLOCK_BUTTON in
+	1) xbacklight -inc 5 && pkill -RTMIN+12 dwmblocks ;;
+	2) "$TERMINAL" -e "$EDITOR" "$0" ;;
+	3) xbacklight -dec 5 && pkill -RTMIN+12 dwmblocks ;;
+esac
+
 BRIGHTNESS="$(xbacklight -get)"
 
 if [ ${BRIGHTNESS%.*} -lt 20 ]; then
-        BRIGHTNESS_ICON="🌕"
+        BRIGHTNESS_ICON=""
 elif [ ${BRIGHTNESS%.*} -lt 40 ]; then
-        BRIGHTNESS_ICON="🌖"
+        BRIGHTNESS_ICON=""
 elif [ ${BRIGHTNESS%.*} -lt 60 ]; then
-        BRIGHTNESS_ICON="🌗"
+        BRIGHTNESS_ICON=""
 elif [ ${BRIGHTNESS%.*} -lt 80 ]; then
-        BRIGHTNESS_ICON="🌘"
+        BRIGHTNESS_ICON=""
 else
-        BRIGHTNESS_ICON="🌑"
+        BRIGHTNESS_ICON=""
 fi
 
 echo "$BRIGHTNESS_ICON ${BRIGHTNESS%.*}%"

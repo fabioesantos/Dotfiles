@@ -1,5 +1,11 @@
 #!/bin/sh
 
+case $BLOCK_BUTTON in
+	1) amixer -q set Master toggle && pkill -RTMIN+10 dwmblocks ;;
+	2) "$TERMINAL" -e "$EDITOR" "$0" ;;
+	3) "$TERMINAL" -e alsamixer ;;
+esac
+
 VOLUME="$(amixer sget Master | awk -F"[][]" '/dB/ { print $2 }' | sed 's/%//')"
 headphone="$(cat /proc/asound/card0/codec#0 | grep "Pin-ctls" | awk 'NR==2{print $3}')"
 

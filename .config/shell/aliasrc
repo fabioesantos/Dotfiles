@@ -1,10 +1,16 @@
 # Aliases for the shell
 
-# use exa as ls
-alias ls='exa -nF --color=always --group-directories-first' 
-alias la='exa -nFa --color=always --group-directories-first'
-alias ll='exa -nFl --color=always --group-directories-first'
-alias lo='exa -nFal --color=always --group-directories-first'
+# Use exa as ls
+#alias ls='exa -nF --color=always --group-directories-first' 
+#alias la='exa -nFa --color=always --group-directories-first'
+#alias ll='exa -nFl --color=always --group-directories-first'
+#alias lo='exa -nFal --color=always --group-directories-first'
+
+# ls aliases
+alias ls='/bin/ls --color=always -F --group-directories-first'
+alias la='ls -a'
+alias ll='ls -l'
+alias lo='ls -al'
 
 # use colors in grep and diff
 alias grep='grep --color=auto'
@@ -15,14 +21,11 @@ alias cp="cp -iv"
 alias mv='mv -iv'
 alias rm='rm -iv'
 
+# misc
 alias lynx='lynx -cfg=$HOME/.config/lynx/lynx.cfg -lss=$HOME/.config/lynx/lynx.lss'
-
 alias startx='startx "$XINITRC" -- "$XSERVERRC" vt1'
-
 alias weather='curl -sf wttr.in/Belo-Horizonte,BR'
-
-alias nvim='nvim -u ~/.config/nvim/init.vim'
-
 alias neo='neo --charset=english -D'
+alias mutt='mutt && pkill -RTMIN+11 dwmblocks'
 
 # vim: filetype=sh

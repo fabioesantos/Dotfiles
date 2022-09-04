@@ -3,8 +3,8 @@
 choosen="$(echo 'Reboot\nPoweroff\nLock\nSuspend' | dmenu -p 'Power Menu:')"
 
 case $choosen in
-        Reboot) doas -n /sbin/shutdown -r now ;;
-        Poweroff) doas -n /sbin/shutdown -h -P now ;;
-        Lock) /usr/local/bin/slock ;;
-        Suspend) /usr/local/bin/slock & doas -n /usr/sbin/s2ram ;;
+        Reboot) notify-send "  Rebooting..." & doas -n /sbin/shutdown -r now ;;
+        Poweroff) notify-send "  Shutting down..." & doas -n /sbin/shutdown -h -P now ;;
+        Lock) /usr/bin/slock ;;
+        Suspend) /usr/bin/slock & doas -n /usr/sbin/s2ram ;;
 esac

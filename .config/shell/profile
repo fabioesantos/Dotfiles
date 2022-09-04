@@ -1,16 +1,18 @@
-### Profile File ###
+# $OpenBSD: dot.profile,v 1.9 2010/12/13 12:54:31 millert Exp $
+#
+# sh/ksh initialization
 
 # Set location of kshrc file
-export ENV="${HOME}/.config/ksh/kshrc"
+export ENV="${HOME}/.config/mksh/mkshrc"
 
 # Add '~/.local/bin' to $PATH
 export PATH="${HOME}/.local/bin:/home/fabiosantos/.local/share/cargo/bin:${PATH}"
 
 # Set bat as manpager
-#export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
-#set VIM as manpager
-export MANPAGER="vim -M +MANPAGER -c 'set nonumber norelativenumber' -"
+# set VIM as manpager
+#export MANPAGER="vim -M +MANPAGER -c 'set nonumber norelativenumber' -"
 
 # Make sure iris driver is used
 export MESA_LOADER_DRIVER_OVERRIDE="iris"
@@ -49,6 +51,8 @@ export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch/config"
 export MBSYNCRC="$XDG_CONFIG_HOME/mbsync/config"
 export RXVT_SOCKET="$XDG_DATA_HOME/urxvt/urxvtd-$(uname -n)"
 export URXVT_PERL_LIB="$XDG_DATA_HOME/urxvt/ext"
+#export VK_INSTANCE_LAYERS="VK_LAYER_MESA_overlay"
+#export VK_LAYER_MESA_OVERLAY_CONFIG="width=310,format=0"
 #export ELINKS_CONFDIR="$XDG_CONFIG_HOME/elinks"
 #export RANDFILE="$XDG_CACHE_HOME/rnd"
 

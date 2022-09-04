@@ -1,0 +1,6 @@
+#!/bin/sh
+
+. /home/fabiosantos/.config/shell/profile
+mpop fabioesantos@ufmg.br && notify-send "  Mail synced."
+notmuch new 2>/dev/null
+pkill -RTMIN+11 dwmblocks

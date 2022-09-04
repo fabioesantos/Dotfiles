@@ -1,5 +1,0 @@
-#!/bin/sh
-
-status=$(yandex-disk status | awk 'NR==1{print $3 $4 $5}' | sed 's/status://')
-
-echo "Я $status"

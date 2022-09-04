@@ -1,5 +1,11 @@
 #!/bin/sh
 
+case $BLOCK_BUTTON in
+	1) notify-send "$(ps axch -o cmd:15,%mem --sort=-%mem | head)" ;;
+	2) "$TERMINAL" -e "$EDITOR" "$0" ;;
+	3) "$TERMINAL" -e htop ;;
+esac
+
 memory=$(free -m | awk 'NR==2{print $3}')
 
 echo "" $memory"M"

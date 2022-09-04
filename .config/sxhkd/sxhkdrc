@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + d
-        rofi -show run
+        dmenu_run
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -51,7 +51,7 @@ Pause
 
 # Bookmarks for Surf Browser
 super + shift + b
-        bookmarks_rofi
+        bookmarks
 
 # Open ncmpcpp
 super + shift + m
@@ -59,7 +59,7 @@ super + shift + m
 
 # Open neomutt
 super + e
-        urxvtc -e neomutt
+        urxvtc -e mutt
 
 # Open Luakit
 super + b
@@ -67,7 +67,7 @@ super + b
 
 # Suspend/reboot/shutdown the system
 super + shift + r
-        reboot_comp_rofi
+        reboot_comp
 
 #
 # bspwm hotkeys
