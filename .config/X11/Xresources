@@ -20,8 +20,27 @@ Xft.hintstyle: hintfull
 Xft.lcdfilter: lcdfilter
 Xft.rgba: rgb
 
-*background: #000000
-*foreground: #ffffff
+/* Base16 Unikitty Dark */
+/* Scheme: Josh W Lewis (@joshwlewis) */
+*foreground:  #eeeeee
+*background:  #000000
+
+*color0:  #2e2a31
+*color1:  #d8137f
+*color2:  #17ad98
+*color3:  #dc8a0e
+*color4:  #796af5
+*color5:  #bb60ea
+*color6:  #149bda
+*color7:  #bcbabe
+*color8:  #838085
+*color9:  #d8137f
+*color10: #17ad98
+*color11: #dc8a0e
+*color12: #796af5
+*color13: #bb60ea
+*color14: #149bda
+*color15: #f5f4f7
 
 /* URxvt Appearance */
 URxvt*font: xft:Fira Code Nerd Font Mono:style=Regular:pixelsize=12
@@ -62,14 +81,14 @@ URxvt.keysym.Control-Down: \033[1;5B
 URxvt.keysym.Control-Right: \033[1;5C
 URxvt.keysym.Control-Left: \033[1;5D
 !URxvt.keysym.Control-o: lfcd\n
-URxvt.keysym.Control-a: nsxiv *\n
+!URxvt.keysym.Control-a: sxiv *\n
 
 /* Perl extensions */
 URxvt.perl-ext-common: default,font-size,url-select,keyboard-select,clipboard
 URxvt.colorUL: #4682B4
 !! url-select
 URxvt.keysym.M-u: perl:url-select:select_next
-URxvt.url-select.launcher: /usr/bin/surf
+URxvt.url-select.launcher: /usr/bin/qutebrowser
 URxvt.url-select.underline: true
 !! keyboard-select:
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
@@ -83,30 +102,3 @@ URxvt.keysym.Control-Shift-C: perl:clipboard:copy
 URxvt.keysym.Control-Shift-V: perl:clipboard:paste
 URxvt.clipboard.copycmd:  xclip -i -selection clipboard
 URxvt.clipboard.pastecmd: xclip -o -selection clipboard
-
-/* Xterm config */
-XTerm*foreground:         #ffffff
-XTerm*background:         #000000
-XTerm*cursorColor:        #44ffff
-
-XTerm*termName:           xterm-256color
-XTerm*renderFont:         true
-XTerm*faceName:           xft:mononoki Nerd Font
-XTerm*faceSize:           10
-XTerm*allowBoldFonts:     true
-XTerm*locale:             false
-XTerm*utf8:               true
-XTerm*charClass:          33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
-XTerm*dynamiccolors:      true
-XTerm*visualBell:         off
-XTerm*highlightSelection: true
-XTerm*loginShell:         true
-XTerm*scaleHeight:        1.00
-XTerm*savelines:          16384
-XTerm*cursorBlink:        false
-
-XTerm*vt100.translations: #override \
-        Ctrl <Key> minus:   smaller-vt-font() \n\
-        Ctrl <Key> plus:    larger-vt-font() \n\
-        Shift Ctrl <Key> C: copy-selection(CLIPBOARD) \n\
-        Shift Ctrl <Key> V: insert-selection(CLIPBOARD)

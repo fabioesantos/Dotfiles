@@ -1,0 +1,7 @@
+#!/bin/sh
+
+search="$(echo 'luideverso\nHistória Pública\nHistória Cabeluda\nMeteoro Brasil\nJones Manuel\nJoão Carvalho' | dmenu -p 'Search Video:')"
+
+[ ! "$search" ] && exit
+
+ytfzf -D $search

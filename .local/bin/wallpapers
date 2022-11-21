@@ -1,9 +1,3 @@
 #!/bin/sh
 
-meh ~/Pictures/Wallpapers/* | while read file
-do
-                ln -sf "$file" $XDG_CONFIG_HOME/X11/wall.jpg &&
-                xwallpaper --stretch $XDG_CONFIG_HOME/X11/wall.jpg &&
-                notify-send "  Wallpaper changed!"
-
-done
+nsxiv $HOME/Pictures/Wallpapers/* 

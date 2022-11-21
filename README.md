@@ -1,17 +1,18 @@
 # Dotfiles
-The dotfiles used in my linux desktop. DWM is my default window manager.
+The dotfiles used in my Gentoo Linux desktop. [dwm](https://github.com/fabioesantos/dwm) is my default window manager.
 
 Fell free for use whatever you wish.
 
 ## Configurantion files for:
 
 * mpd
-* mksh
+* ksh93
 * asoundrc (alsa only setup)
 * lf (with image preview using ueberzug library)
 * Vim
-* BSPWM
+* Luakit
+* Elinks
 * Qutebrowser
-* Lynx
 * Zathura
+* Picom
 * and more.

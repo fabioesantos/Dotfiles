@@ -11,5 +11,7 @@ curl -s 'https://g1.globo.com/rss/g1/politica/' | sfeed > $feeds_dir/g1
 # RT en español
 curl -s 'https://actualidad.rt.com/feeds/all.rss' | sfeed > $feeds_dir/rt
 
+# Opera Mundi
+curl -s 'https://operamundi.uol.com.br/rss' | sfeed > $feeds_dir/"opera mundi"
 
-notify-send " feeds updated!"
+/home/fabiosantos/.local/bin/notify-send " feeds updated!"

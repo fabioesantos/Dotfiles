@@ -9,11 +9,8 @@ BATTERY=$(cat /sys/class/power_supply/BAT1/capacity)
 STATUS=$(cat /sys/class/power_supply/BAT1/status)
 
 [ $STATUS = "Discharging" ] && BATTERY_INFO=" $BATTERY%"
-
 [ $STATUS = "Charging" ] && BATTERY_INFO=" $BATTERY%"
-
 [ $STATUS = "Full" ] && BATTERY_INFO=" $BATTERY%"
-
 [ $STATUS = "Unknown" ] && BATTERY_INFO=" $BATTERY%"
 
 # Low Battery warning

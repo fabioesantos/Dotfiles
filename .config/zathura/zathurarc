@@ -27,6 +27,7 @@ map <C-h> navigate previous
 map [fullscreen] <C-h> navigate previous
 map <C-l> navigate next
 map [fullscreen] <C-l> navigate next
+map i recolor
 
 set font "Fira Code Nerd Font 9"
 # zathurarc-dark
@@ -68,5 +69,5 @@ set render-loading-bg           "#000000" # base02
 
 # Recolor book content's color
 #set recolor                     true
-set recolor-lightcolor          "#000000" # base02
-set recolor-darkcolor           "#eeeeee" # base1
+#set recolor-lightcolor          "#000000" # base02
+#set recolor-darkcolor           "#eeeeee" # base1

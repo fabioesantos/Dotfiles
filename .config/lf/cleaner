@@ -1,6 +1,5 @@
 #!/bin/sh
 
-[ $WAYLAND_DISPLAY ] && exit
 [ ! $DISPLAY ] && exit
 
 if [ -n "$FIFO_UEBERZUG" ]; then

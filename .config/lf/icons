@@ -1,3 +1,4 @@
+#!/bin/sh
 # list for lf icons:
 export LF_ICONS="\
 tw=:\
