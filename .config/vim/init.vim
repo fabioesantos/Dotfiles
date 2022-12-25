@@ -1,5 +1,3 @@
-""""""" VIMRC - vim config file """"""
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Make vim respects XDG especification
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -22,17 +20,39 @@ set viminfofile=$XDG_CACHE_HOME/vim/viminfo
 call plug#begin('/home/fabiosantos/.local/share/vim/plugged')
 Plug 'jalvesaq/Nvim-R'
 Plug 'vimwiki/vimwiki'
+Plug 'VebbNix/lf-vim'
+Plug 'preservim/nerdtree'
+Plug 'matze/vim-tex-fold'
+Plug 'vim-airline/vim-airline'
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Related Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Nvim-R
-let R_rconsole_width = 0                        " Always prefer a horizontal split for R console
-let R_rconsole_height = 18                      " Number of lines of R console
+let R_rconsole_width = 0              " Always prefer a horizontal split for R console
+let R_rconsole_height = 18            " Number of lines of R console
+
+" airline
+set laststatus=2
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_min_count =2
+let g:airline_theme='cyberpunk'
+let g:airline#extensions#disable_rtp_load = 1
+let g:airline#extensions#whitespace#enabled = 0
 
 " VimWiki
 let g:vimwiki_list = [{'path': '~/.local/share/vim/vimwiki'}]
+
+" NerdTree
+nnoremap <C-n> :NERDTreeToggle<CR>
+let NERDTreeShowHidden=1
+let g:NERDTreeWinSize=20
+
+" Close the tab if NERDTree is the only window remaining in it.
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General VIM Settings
@@ -44,20 +64,34 @@ if exists('&t_SR')
     let &t_SR = "\<esc>[4 q"
 endif
 
+"Workaround for termguicolors in st
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
+"The time in milliseconds that is waited for a key code or mapped key sequence to complete.
 set timeout timeoutlen=1000 ttimeoutlen=100
 
 " Disables automatic commenting on newline:
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-" disable break lines automatically in .tex files
-autocmd Filetype tex setlocal tw=0
+" Disable limit of the width in text files
+let g:leave_my_textwidth_alone=1
 
 " Toogle spellchecking
 nnoremap <silent> <F11> :set spell!<cr>
 
 " Enable filetype plugins
-filetype plugin on
-filetype indent on
+filetype plugin indent on
+
+" Automatically deletes all trailing whitespace and newlines at end of file on save. & reset cursor position
+autocmd BufWritePre * let currPos = getpos(".")
+autocmd BufWritePre * %s/\s\+$//e
+autocmd BufWritePre * %s/\n\+\%$//e
+autocmd BufWritePre *.[ch] %s/\%$/\r/e
+autocmd BufWritePre * cal cursor(currPos[1], currPos[2])
+
+" Return to last edit position when opening files
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " Compile document, be it groff/LaTeX/markdown/etc.
 map <F5> :w! \| !compiler "<c-r>%"<CR>
@@ -74,34 +108,9 @@ map <F6> :!opout <c-r>%<CR><CR>
 " Runs a script that cleans out tex build files whenever I close out of a .tex file.
 autocmd VimLeave *.tex !texclear %
 
-" Cool file explorer stuff in a pane using netrw
-function! ToggleVExplorer()
-    if exists("t:expl_buf_num")
-        let expl_win_num = bufwinnr(t:expl_buf_num)
-        if expl_win_num != -1
-            let cur_win_nr = winnr()
-            exec expl_win_num . 'wincmd w'
-            close
-            exec cur_win_nr . 'wincmd w'
-            unlet t:expl_buf_num
-        else
-            unlet t:expl_buf_num
-        endif
-    else
-        exec '1wincmd w'
-        Vexplore .
-        let t:expl_buf_num = bufnr("%")
-    endif
-endfunction
-nnoremap <silent> <C-n> :call ToggleVExplorer()<CR>
-
-" netrw options
-let g:netrw_sort_sequence = '[\/]$,*'   " directories first
-let g:netrw_browse_split  = 4           " open new buffers in previous tab
-let g:netrow_altv         = 1
-let g:netrw_winsize       = -28         " thinner width
-let g:netrw_banner        = 0           " hide the help info
-let g:netrw_liststyle     = 3           " tree mode
+" Covert .odt files to markdown, and coverts back to .odt after salve file
+autocmd BufReadPost *.odt silent %!pandoc "%" -tmarkdown -o /dev/stdout
+autocmd BufWritePost *.odt :%!pandoc -f markdown "%" -o "%:r".odt
 
 " Set a Local Leader
 let mapleader = ","
@@ -157,21 +166,23 @@ set incsearch                   " To make search act like search in modern brows
 set magic                       " For regular expressions turn magic on.
 
 " Brackets
-set showmatch                   " To show matching brackets when text indicator 
+set showmatch                   " To show matching brackets when text indicator
                                 " is over them.
-set mat=2                       " How many tenths of a second to blink 
+set mat=2                       " How many tenths of a second to blink
                                 " when matching brackets.
 
 " Errors
 set noerrorbells                " No annoying sound on errors.
 
 " Color & Fonts
-syntax enable                   " Enable syntax highlighting.
-language en_US.utf-8            " Use English as default
-set encoding=utf8               " Set utf8 as standard encoding and 
+set termguicolors
+set encoding=utf8               " Set utf8 as standard encoding and
 set spelllang=en,pt             " Set standard languages.
 set t_Co=256                    " Enable 256 colors palette"
 set background=dark
+syntax on                       " Enable syntax highlighting.
+language en_US.utf-8            " Use English as default
+colorscheme cyberpunk-neon
 
 " Files & Backup
 set hidden                      " Allows buffers to be hidden
@@ -181,100 +192,8 @@ set noswapfile                  " Don't create a swap file.
 set ffs=unix,dos,mac            " Use Unix as the standard file type.
 
 " Misc
-set mouse=a                     " Enable mouse support    
+set mouse=a                     " Enable mouse support
 set ttymouse=sgr                " Fixes mouse scrolling in st
 set clipboard=unnamedplus       " Vim clipboard buffer shared with the system clipboard
 set wildmenu                    " Vim autocompetion menu
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Theming
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-highlight LineNr           ctermfg=8       ctermbg=none    cterm=none
-highlight CursorLineNr     ctermfg=7       ctermbg=8       cterm=none
-highlight VertSplit        ctermfg=0       ctermbg=8       cterm=none
-highlight Statement        ctermfg=2       ctermbg=none    cterm=none
-highlight Directory        ctermfg=4       ctermbg=none    cterm=none
-highlight StatusLine       ctermfg=0       ctermbg=14      cterm=none
-highlight StatusLineNC     ctermfg=14      ctermbg=0       cterm=none
-highlight Comment          ctermfg=103     ctermbg=none    cterm=italic
-highlight Constant         ctermfg=12      ctermbg=none    cterm=none
-highlight Special          ctermfg=4       ctermbg=none    cterm=none
-highlight Identifier       ctermfg=6       ctermbg=none    cterm=bold
-highlight PreProc          ctermfg=5       ctermbg=none    cterm=none
-highlight String           ctermfg=12      ctermbg=none    cterm=none
-highlight Number           ctermfg=1       ctermbg=none    cterm=none
-highlight Function         ctermfg=1       ctermbg=none    cterm=bold
-highlight WildMenu         ctermfg=231     ctermbg=0       cterm=none
-highlight Folded           ctermfg=103     ctermbg=234     cterm=none
-highlight FoldColumn       ctermfg=103     ctermbg=234     cterm=none
-highlight DiffAdd          ctermfg=none    ctermbg=23      cterm=none
-highlight DiffChange       ctermfg=none    ctermbg=56      cterm=none
-highlight DiffDelete       ctermfg=168     ctermbg=96      cterm=none
-highlight DiffText         ctermfg=0       ctermbg=80      cterm=none
-highlight SignColumn       ctermfg=244     ctermbg=235     cterm=none
-highlight Conceal          ctermfg=251     ctermbg=none    cterm=none
-highlight SpellBad         ctermfg=168     ctermbg=none    cterm=underline
-highlight SpellCap         ctermfg=80      ctermbg=none    cterm=underline
-highlight SpellRare        ctermfg=121     ctermbg=none    cterm=underline
-highlight SpellLocal       ctermfg=186     ctermbg=none    cterm=underline
-highlight Pmenu            ctermfg=251     ctermbg=234     cterm=none
-highlight PmenuSel         ctermfg=0       ctermbg=111     cterm=none
-highlight PmenuSbar        ctermfg=206     ctermbg=235     cterm=none
-highlight PmenuThumb       ctermfg=235     ctermbg=206     cterm=none
-highlight TabLine          ctermfg=244     ctermbg=234     cterm=none
-highlight TablineSel       ctermfg=0       ctermbg=247     cterm=none
-highlight TablineFill      ctermfg=244     ctermbg=234     cterm=none
-highlight CursorColumn     ctermfg=none    ctermbg=236     cterm=none
-highlight CursorLine       ctermfg=none    ctermbg=236     cterm=none
-highlight ColorColumn      ctermfg=none    ctermbg=236     cterm=none
-highlight Cursor           ctermfg=0       ctermbg=5       cterm=none
-highlight htmlEndTag       ctermfg=114     ctermbg=none    cterm=none
-highlight xmlEndTag        ctermfg=114     ctermbg=none    cterm=none
-highlight User1            ctermfg=14      ctermbg=0       cterm=none
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Statusline settings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set laststatus=2                                                 " Always show statusline
-set statusline=                                                  " Clear statusline
-set statusline+=\ %{toupper(g:currentmode[mode()])}              " Show current mode
-set statusline+=%<                                               " Truncate line here
-set statusline+=%1*\                                            " Set highlight group to User1
-set statusline+=%{&spell?'[SPELL]':''}                           " Show if spellchecking is active
-set statusline+=\ %f                                             " Full path to the file in the buffer
-set statusline+=%{&modified?'\ [+]':''}                          " Show if file is modified
-set statusline+=%{&readonly?'\ []':''}                          " Show if file is readonly
-set statusline+=%<                                               " Truncate line here
-set statusline+=%=                                               " Separation point between left and right aligned items.
-set statusline+=%(\ %{&filetype!=#''?&filetype:'\ none'}%)      " Filetype
-set statusline+=\ %*                                            " Restore Normal highlight
-set statusline+=%{&fileencoding!='utf-8'?''.&fileencoding.'':''} " Encoding
-set statusline+=%-7([%{&fileformat}]%)                           " Fileformat
-set statusline+=%(\ [%l/%L]%)                                   " Location of cursor line
-set statusline+=%(\ \ [%{WordCount()}\ words]%)                 " Show word count
-
-" Live word count
-let g:word_count=wordcount().words
-function WordCount()
-    if has_key(wordcount(),'visual_words')
-        let g:word_count=wordcount().visual_words."/".wordcount().words " count selected words
-    else
-        let g:word_count=wordcount().cursor_words."/".wordcount().words " or shows words 'so far'
-    endif
-    return g:word_count
-endfunction
-
-" Vim current mode
-let g:currentmode={
-       \ 'n'  : 'NORMAL ',
-       \ 'v'  : 'VISUAL ',
-       \ 'V'  : 'V·Line ',
-       \ "\<C-V>" : 'V·Block ',
-       \ 'i'  : 'INSERT ',
-       \ 'R'  : 'R ',
-       \ 'Rv' : 'V·Replace ',
-       \ 'c'  : 'Command ',
-       \ 't'  : 'console',
-       \}
-
-" vim: set fenc=utf-8 tw=80 sw=2 sts=2 et foldmethod=marker :
+let is_kornshell=1              " use ksh syntax for sh

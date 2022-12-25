@@ -19,3 +19,18 @@ x-scheme-handler/lbry=lbry.desktop;
 inode/directory=file.desktop;
 audio/*=mpv.desktop;
 x-scheme-handler/discord-424004941485572097=discord-424004941485572097.desktop
+x-scheme-handler/http=surf.desktop
+text/html=surf.desktop
+text/xml=surf.desktop
+application/xhtml_xml=surf.desktop
+image/webp=surf.desktop
+x-scheme-handler/https=surf.desktop
+x-scheme-handler/ftp=surf.desktop
+
+[Added Associations]
+text/html=surf.desktop;
+text/xml=surf.desktop;
+application/xhtml_xml=surf.desktop;
+image/webp=surf.desktop;
+x-scheme-handler/https=surf.desktop;
+x-scheme-handler/ftp=surf.desktop;

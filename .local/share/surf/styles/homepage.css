@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Anton');
 
 body {
-    background-color: #222222;
+    background-color: #091833;
     margin: 0px;
 }
 
@@ -121,4 +121,3 @@ body {
 .bookmark:hover {
     color: #fff;
 }
-

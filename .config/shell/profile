@@ -9,7 +9,7 @@ export ENV="${HOME}/.config/ksh/kshrc"
 export PATH="${HOME}/.local/bin:${PATH}"
 
 # Default programs:
-export BROWSER="/usr/bin/surf"
+export BROWSER="surf-open.sh"
 export READER="zathura"
 export TERMINAL="st"
 export COMPOSITOR="picom"
@@ -18,9 +18,11 @@ export COMPOSITOR="picom"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_RUNTIME_DIR="/run/user/$(id -u)"
 
 # Cleaning $HOME
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh/"
 export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
 export XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc"
 export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
@@ -36,19 +38,25 @@ export VIMINIT="set nocp | source ${XDG_CONFIG_HOME}/vim/init.vim"
 export INPUTRC="$HOME/.config/inputrc"
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch/config"
 export MBSYNCRC="$XDG_CONFIG_HOME/mbsync/config"
-export ELINKS_CONFDIR="$XDG_CONFIG_HOME/elinks"
-export RANDFILE="$XDG_CACHE_HOME/rnd"
+export IJ_HOME="$XDG_CONFIG_HOME/imagej"
 
 # Misc
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export LESSOPEN="| /usr/bin/highlight -O ansi %s 2>/dev/null"
+export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"
+export LESS_TERMCAP_md="$(printf '%b' '[1;36m')"
+export LESS_TERMCAP_me="$(printf '%b' '[0m')"
+export LESS_TERMCAP_so="$(printf '%b' '[01;44;33m')"
+export LESS_TERMCAP_se="$(printf '%b' '[0m')"
+export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"
+export LESS_TERMCAP_ue="$(printf '%b' '[0m')"
 export SUDO_ASKPASS="$HOME/.local/bin/dmenupass"
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
+export _JAVA_AWT_WM_NONREPARENTING=1
+export AWT_TOOLKIT="MToolkit wmname LG3D"
 export LIBVA_DRIVER_NAME="i965"
 export ENABLE_VKBASALT=0
 export WINEFSYNC=1
 export WINEESYNC=1
-export LESSHISTFILE=-
-export LESS="-sFRiMX --shift 5 --use-color"
 export HOSTNAME=$(hostname)
-
-# vim: filetype=sh
+export LESS=-R

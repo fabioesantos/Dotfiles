@@ -1,0 +1,5 @@
+_git_branch()
+{
+        [[ $(git rev-parse --abbrev-ref HEAD 2> /dev/null) != "" ]] \
+            && echo -n "$(git rev-parse --abbrev-ref HEAD 2> /dev/null) "
+}

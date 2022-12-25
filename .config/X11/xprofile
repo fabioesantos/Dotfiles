@@ -10,13 +10,15 @@
 
 xwallpaper --stretch $XDG_CONFIG_HOME/X11/wall.jpg &
 
-#xcompmgr &
-
-picom --experimental-backends &
+picom &
 
 dwmblocks &
 
-xss-lock slock 2>/dev/null &
+#xss-lock slock 2>/dev/null &
+
+[ $(pidof redshift) ] && pkill -KILL redshift
+
+redshift 1>/dev/null 2>/dev/null &
 
 [ $(pidof xob) ] && pkill -KILL xob && pkill -KILL tail
 

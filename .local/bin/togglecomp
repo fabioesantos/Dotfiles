@@ -1,14 +1,11 @@
 #!/bin/sh
 
-comp="$COMPOSITOR"
-[ $COMPOSITOR = "picom" ] && comp="$COMPOSITOR --experimental-backends"
-
 if [ $(pgrep $COMPOSITOR &>/dev/null) ]; then
     notify-send "Turning compositor OFF"
     pkill $COMPOSITOR &
 else
     notify-send "Turning compositor ON"
-    $comp &
+    $COMPOSITOR &
 fi
 
 exit 0

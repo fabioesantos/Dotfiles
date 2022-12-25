@@ -27,7 +27,7 @@ userresources="$XDG_CONFIG_HOME/X11/Xresources"
 
 [ -f $userprofile ] && . $userprofile
 [ -f $userresources ] && xrdb -load $userresources
- 
+
 # Start session in XSESSION variable or xsession file
 [ $XSESSION ] && exec $XSESSION
 [ -f $XDG_CONFIG_HOME/X11/xsession ] && . $XDG_CONFIG_HOME/X11/xsession

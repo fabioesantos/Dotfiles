@@ -2,7 +2,7 @@
 while read file
 do
         case "$1" in
-        "w") ln -sf "$file" ~/.config/X11/wall.jpg &&
+        "w") ln -sf "$(readlink -f $file)" ~/.config/X11/wall.jpg &&
                 xwallpaper --stretch $XDG_CONFIG_HOME/X11/wall.jpg &&
                 notify-send "  Wallpaper changed!" ;;
         "c")

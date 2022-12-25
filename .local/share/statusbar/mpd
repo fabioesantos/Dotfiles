@@ -3,7 +3,7 @@
 case $BLOCK_BUTTON in
 	1) mpc toggle ;;
 	2) "$TERMINAL" -e "$EDITOR" "$0" ;;
-	3) "$TERMINAL" -e ncmpcpp ;;
+	3) "$TERMINAL" -e ncmpcpp-ueberzug ;;
 esac
 
 mpid="$(pidof mpd)"
@@ -14,11 +14,8 @@ mpid="$(pidof mpd)"
         mpdstate="$(mpc | awk -F"[][]" 'NR==2{print $2}')"
 
 [ -z "$music" ] && STATUS="■ Stopped"
-
 [ -z "$mpid" ] && STATUS="  MPD off"
-
 [ "$mpdstate" = "paused" ] && STATUS=" $info ($music)"
-
 [ "$mpdstate" = "playing" ] && STATUS=" $info ($music)"
 
 echo " $STATUS"

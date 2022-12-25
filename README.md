@@ -1,5 +1,6 @@
 # Dotfiles
-The dotfiles used in my Gentoo Linux desktop. [dwm](https://github.com/fabioesantos/dwm) is my default window manager.
+
+The dotfiles used in my Gentoo Linux desktop. I use [dwm](https://github.com/fabioesantos/dwm) as my window manager.
 
 Fell free for use whatever you wish.
 
@@ -11,8 +12,8 @@ Fell free for use whatever you wish.
 * lf (with image preview using ueberzug library)
 * Vim
 * Luakit
-* Elinks
-* Qutebrowser
+* Lynx
+* Xorg
 * Zathura
 * Picom
 * and more.

@@ -1,14 +1,15 @@
 #!/bin/sh
 
-bookmarks="$(echo 'Homepage\nRevista Opera\nStartpage\nGoogle Scholar\nTwitch\nYoutube\nPPGBC-UFMG\nTransmission Web\nTibia Wiki\nSci-Hub' | dmenu -p 'Search or URL:')"
+bookmarks="$(printf ' Homepage\n Whatsapp\nRevista Opera\nStartpage\n Google Scholar\n Twitch\n Youtube\nPPGBC-UFMG\nTransmission Web\nTibia Wiki\nSci-Hub' | dmenu -p 'Search or URL:')"
 
 case $bookmarks in
-        Homepage) url="/home/fabiosantos/.local/share/surf/html/homepage.html" ;;
+        " Homepage") url="/home/fabiosantos/.local/share/surf/html/homepage.html" ;;
+        " Whatsapp") url="web.whatsapp.com" ;;
         "Revista Opera") url="https://revistaopera.com.br/" ;;
         Startpage) url="https://www.startpage.com/do/mypage.pl?prfe=619b06c93a91167d082c45e5259e24ce9d7ce2d9fb63c60ffd4221d9098178331c18aca7b46fed8e53164988eb5ae08ade836bdbe924ce479ce15696546201e6ac0ea3a3274ca22ccb9eea2eeebd" ;;
-        "Google Scholar") url="scholar.google.com" ;;
-        Twitch) url="twitch.tv" ;;
-        Youtube) url="youtube.com" ;;
+        " Google Scholar") url="scholar.google.com" ;;
+        " Twitch") url="twitch.tv" ;;
+        " Youtube") url="youtube.com" ;;
         PPGBC-UFMG) url="http://www.pgbiologiacelular.icb.ufmg.br/index.php" ;;
         "Transmission Web") url="http://127.0.0.1:9091/transmission/web/" ;;
         "Tibia Wiki") url="https://www.tibiawiki.com.br" ;;

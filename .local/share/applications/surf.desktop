@@ -3,5 +3,5 @@ Type=Application
 Name=surf
 Comment=Surf minimal web browser
 Terminal=false
-Exec=surf
+Exec=surf-open.sh
 Categories=Network;WebBrowser

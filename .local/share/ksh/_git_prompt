@@ -1,0 +1,4 @@
+_git_prompt()
+{
+    echo -n "$(_git_check_changes)$(_git_branch)"
+}

@@ -25,9 +25,8 @@ set previewer ~/.config/lf/previewer
 set cleaner ~/.config/lf/cleaner
 set icons true
 set hiddenfiles ".*:*.aux:*.bbl:*.bcf:*.blg:*.run.xml:*.toc:*.fls:*.lof:*.lot:*.lgg:*.ltt:*.out:*.fdb_latexmk"
-#set ratios 1:3:4
 set info size:time
-#set drawbox
+set autoquit on
 
 # show a warning on startup if lf is running as a nested instance
 %[ $LF_LEVEL -eq 1 ] || echo "Warning: You're in a nested lf instance!"
@@ -46,7 +45,7 @@ cmd on-quit &{{
         lf -remote 'quit'
 }}
 
-#on-quit
+map <c-p> set hidden
 
 map x quitcd
 cmd quitcd ${{
@@ -75,9 +74,11 @@ map <c-a> img
 # define a custom 'open' command
 cmd open ${{
     case $(file --mime-type $f -b) in
+        application/java-archive) java -jar $fx & ;;
+        application/x-dosexec) wine $fx & ;;
         application/epub*) setsid -f mupdf $fx >/dev/null 2>&1 ;;
         application/pdf|application/postscript|image/vnd.djvu) setsid -f zathura $fx >/dev/null 2>&1 ;;
-        text/csv|application/vnd.oasis.opendocument.spreadsheet|application/vnd.ms-excel|application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) sc-im $f ;;
+        application/x-sc|text/csv|application/vnd.oasis.opendocument.spreadsheet|application/vnd.ms-excel|application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) sc-im $f ;;
         text/html) setsid -f $BROWSER $f ;;
         text/*|application/octet-stream) $EDITOR $fx ;;
         inode/symlink) $EDITOR $(readlink $fx) ;;

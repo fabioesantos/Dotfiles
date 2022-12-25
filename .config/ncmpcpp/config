@@ -1,13 +1,48 @@
 # vim: filetype=conf
 
-ncmpcpp_directory = "/home/fabiosantos/.config/ncmpcpp"
+external_editor = "vim"
+
+ncmpcpp_directory = "~/.config/ncmpcpp"
 mpd_music_dir = "~/Music/"
-lyrics_directory = "/home/fabiosantos/.local/share/lyrics"
+lyrics_directory = "~/.local/share/lyrics/"
+mpd_host = "127.0.0.1"
+mpd_port = "6600"
+system_encoding = "utf-8"
+
+# Visualizer
 visualizer_in_stereo = "yes"
 visualizer_data_source = "/tmp/mpd.fifo"
 visualizer_output_name = "my_fifo"
 visualizer_type = "spectrum"
-visualizer_look = "◆▋"
+visualizer_look = "●┃"
+visualizer_spectrum_smooth_look = yes
+visualizer_color = "blue"
+
+## Note: You can specify third character which will
+## be used to build 'empty' part of progressbar.
+##
+#progressbar_look = "◾◾◽"
+#progressbar_look = "=>"
+#progressbar_look = "─- "
+#progressbar_look = "▒▒░"
+#progressbar_look = "┅┅┄"
+progressbar_look = "─⊙┄"
+#progressbar_look = "─➞─"
+#progressbar_look = "─┅─"
+#progressbar_look = "▪▪▪"
+#progressbar_look = "▪▪▫"
+#progressbar_look = "───"
+#progressbar_look = "▁▁▁"
+#progressbar_look =  "=>-"
+#progressbar_look = "‒‒‒"
+#progressbar_look = "■◣ "
+#progressbar_look = "◈◆◇"
+#progressbar_look = "─╼ "
+
+user_interface = "alternative"
+follow_now_playing_lyrics = "yes"
+fetch_lyrics_for_current_song_in_background = "yes"
+locked_screen_width_part = "60"
 message_delay_time = "3"
 playlist_shorten_total_times = "yes"
 playlist_display_mode = "columns"
@@ -16,24 +51,37 @@ search_engine_display_mode = "columns"
 playlist_editor_display_mode = "columns"
 autocenter_mode = "yes"
 centered_cursor = "yes"
-user_interface = "alternative"
-follow_now_playing_lyrics = "yes"
-fetch_lyrics_for_current_song_in_background = "yes"
-locked_screen_width_part = "60"
 display_bitrate = "yes"
-external_editor = "vim"
 use_console_editor = "yes"
-header_window_color = "cyan"
-volume_color = "red"
-state_line_color = "yellow"
-state_flags_color = "red"
-progressbar_color = "yellow"
-statusbar_color = "cyan"
-visualizer_color = "magenta"
-mpd_host = "127.0.0.1"
-#mpd_port = "6001"
+
+#header_window_color = "cyan"
+#volume_color = "red"
+#state_line_color = "yellow"
+#state_flags_color = "red"
+#progressbar_color = "yellow"
+#statusbar_color = "cyan"
+
+##### colors definitions #####
+colors_enabled = yes
+empty_tag_color = blue
+header_window_color = white
+volume_color = blue
+state_line_color = red
+state_flags_color = blue
+main_window_color = cyan
+color1 = red
+color2 = magenta
+progressbar_color = cyan
+progressbar_elapsed_color = red
+statusbar_color = green
+alternative_ui_separator_color = black
+window_border_color = black
+active_window_border = green
+
 mouse_list_scroll_whole_page = "yes"
 lines_scrolled = "1"
 enable_window_title = "yes"
-song_columns_list_format = "(25)[cyan]{a} (40)[]{f} (30)[red]{b} (7f)[green]{l}"
+song_columns_list_format = "(25)[cyan]{a} (40)[]{t} (30)[red]{b} (7f)[green]{l}"
+#song_columns_list_format = "(25)[6]{a} (35)[4]{t} (5)[2]{l}"
+
 execute_on_song_change="~/.config/ncmpcpp/ncmpcpp-ueberzug/ncmpcpp_cover_art.sh"

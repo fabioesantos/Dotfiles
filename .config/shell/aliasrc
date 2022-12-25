@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Aliases for the shell
 
 # ls aliases
@@ -20,7 +22,9 @@ alias rm='rm -iv'
 # misc
 alias startx='startx "$XINITRC" -- "$XSERVERRC" vt1'
 alias weather='curl -sf wttr.in/Belo-Horizonte,BR'
-alias mutt='mutt && pkill -RTMIN+11 dwmblocks'
-alias tray="xystray -iconrows 1 -iconcols 4"
-
-# vim: filetype=sh
+alias neomutt='neomutt && pkill -RTMIN+11 dwmblocks'
+alias lynx='lynx -cfg=~/.config/lynx/lynx.cfg -lss=~/.config/lynx/lynx.lss -vikeys'
+alias abook='abook --config "$XDG_CONFIG_HOME"/abook/abookrc --datafile "$XDG_DATA_HOME"/abook/addressbook'
+alias lf='lf-run'
+alias ncmpcpp='ncmpcpp-ueberzug'
+alias magit="vim -c MagitOnly"

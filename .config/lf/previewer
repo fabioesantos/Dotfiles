@@ -17,14 +17,16 @@ ifub() {
 	[ -n "$DISPLAY" ] && command -V ueberzug >/dev/null 2>&1
 }
 
-# Settings for bat 
-HIGHLIGHT_FORMAT="ansi"
-HIGHLIGHT_THEME="base16/unikitty-dark"
+# Settings for highlight
+HIGHLIGHT_FORMAT="truecolor"
+HIGHLIGHT_STYLE='base16/xcode-dusk'
+HIGHLIGHT_SIZE_MAX=262143  # 256KiB
+HIGHLIGHT_TABWIDTH=8
 
 
 case "$(file --dereference --brief --mime-type -- "$1")" in
         application/gzip | application/x-xz | application/x-bzip2 | application/x-lzma | application/x-tar)
-                tar tf "$1" ;;
+                gtar tf "$1" ;;
         application/zip)
                 unzip -l "$1" ;;
         application/x-rar)
@@ -62,9 +64,10 @@ case "$(file --dereference --brief --mime-type -- "$1")" in
         audio/*)
                 mediainfo "$1" ;;
         text/html)
-                elinks -dump "$1" ;;
+                lynx -width="$4" -display_charset=utf-8 -dump "$1" ;;
         text/* | */xml)
-                highlight --out-format="$HIGHLIGHT_FORMAT" --style="$HIGHLIGHT_THEME" "$1" || cat "$1" ;;
+                highlight --replace-tabs="${HIGHLIGHT_TABWIDTH}" --out-format="${HIGHLIGHT_FORMAT}" --style="${HIGHLIGHT_STYLE}" \
+                        --max-size="${HIGHLIGHT_SIZE_MAX}" --force -- "$1" || cat "$1" ;;
         application/pgp-encrypted)
                 gpg -d -- "$1" ;;
         *)

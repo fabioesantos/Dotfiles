@@ -2,7 +2,7 @@
 
 # The famous "get a menu of emojis to copy" script.
 
-emoji="$(echo 'Font Awesome\nColored' | dmenu -p 'emoji type:' )"
+emoji="$(printf 'Font Awesome\nColored' | dmenu -p 'emoji type:' )"
 
 [ ! $emoji ] && exit
 

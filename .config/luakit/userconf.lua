@@ -5,7 +5,7 @@ local newtab_chrome = require "newtab_chrome"
 local webview = require "webview"
 
 -- Set the luakit newtab page
-newtab_chrome.new_tab_file = "/home/fabiosantos/.local/share/luakit/homepage.html"
+newtab_chrome.new_tab_file = "/home/fabiosantos/.local/share/surf/html/homepage.html"
 
 -- Use DucuDuckGo as default search engine
 settings.window.default_search_engine = "duckduckgo"
@@ -39,3 +39,5 @@ webview.add_signal("init", function (view)
        end
     end)
 end)
+
+webview.hardware_acceleration_policy = "always"

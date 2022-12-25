@@ -3,17 +3,26 @@
 # .kshrc - Korn shell 93 startup file
 #
 
-umask 0077
+# catch non ksh93, trying to run this file
+case ${KSH_VERSION:-} in
+*93u+m*) ;;
+*) \return 0 ;;
+esac
+
+# PATH to find custom functions to load
+FPATH="/home/fabiosantos/.local/share/ksh"
+
+# Enable emacs mode
 set -o emacs
 
-# History file.
+# History settings.
 HISTFILE=~/.cache/ksh/history
 HISTSIZE=100000
+HISTEDIT=vi
 
 [[ "$USER" = "root" ]] && source ~/.profile
 source $XDG_CONFIG_HOME/shell/aliasrc           # Some aliases
 source $XDG_CONFIG_HOME/shell/ls_colorsrc       # Colors for ls command
-source $XDG_CONFIG_HOME/lf/icons                # Icons for lf
 
 UID=$(id -u)
 case $UID in
@@ -21,93 +30,33 @@ case $UID in
 esac
 PS1S=${PS1S:-'$ '}
 
-# Like pwd but display the $HOME directory as ~
-function pwd
-{
-        typeset dir="${PWD:-$(command pwd -L)}"
-
-        dir="${dir#$HOME/}"
-        case $dir in
-	    "$HOME")
-	        dir=\~ ;;
-	    /*)
-	    ;;
-	    *)
-	        dir=\~/$dir ;;
-        esac
-        print $dir
-}
-
 # Shell prompt
-PS1=$'\a\e[1;34m\a[ ${USER}\a\e[m\a@${HOSTNAME%%.*} \a\e[33m\a$(pwd) \a\e[1;34m\a] \a\e[m\a$PS1S'
+PS1=$'\a\e[1;35m\a${USER}\a\e[m\a@${HOSTNAME%%.*} \a\e[33m\a$(_print_short_pwd) \a\e[1;31m\a$(_git_prompt)\a\e[1;35m\a-> \a\e[m\a'
 
-# Assoctiate a key  with an action.
-typeset -A Keytable
-
-function keybind # key [action]
-{
-    typeset key=$(print -f "%q" "$2")
-    case $# in
-    2)      Keytable[$1]=' .sh.edchar=${.sh.edmode}'"$key"
-            ;;
-    1)      unset Keytable[$1]
-            ;;
-    *)      print -u2 "Usage: $0 key [action]"
-            return 2 # usage errors return 2 by default
-            ;;
-    esac
+# Assoctiate a key with an action.
+keybd_trap () {
+  case ${.sh.edchar} in
+    $'\f')    .sh.edchar=$'\e\f';;      # clear-screen (THIS QUESTION)
+    $'\e[1~') .sh.edchar=$'\001';;      # Home = beginning-of-line
+    $'\e[4~') .sh.edchar=$'\005';;      # End = end-of-line
+    $'\e[5~') .sh.edchar=$'\e>';;       # PgUp = history-previous
+    $'\e[6~') .sh.edchar=$'\e<';;       # PgDn = history-next
+    $'\e[3~') .sh.edchar=$'\004';;      # Delete = delete-char
+    $'\ca')   .sh.edchar=$'nsxiv *\n';; # Ctrl+a = nsxiv *
+    $'\co')   .sh.edchar=$'lfcd\n';;    # Ctrl+o = lfcd
+  esac
 }
-
-function _keytrap
-{
-    eval "${Keytable[${.sh.edchar}]}"
-
-}
-trap _keytrap KEYBD
-
-# Swap ^W and M-baskspace in emacs editing mode.
-keybind $'\cw' $'\E\177'
-keybind $'\E\177' $'\cw'
-
-# Bind clear-screen to Ctrl+L
-keybind $'\f' $'\e\f'
-
-# bind lfcd to ctrl+o
-keybind $'\co' $'lfcd\n'
-
-
-# Image previews in lf.
-function lf {
-	LF_TEMPDIR="$(mktemp -d -t lf-tempdir-XXXXXX)"
-	LF_TEMPDIR="$LF_TEMPDIR" lf-run -last-dir-path="$LF_TEMPDIR/lastdir" "$@"
-	if [[ "$(cat "$LF_TEMPDIR/cdtolastdir" 2>/dev/null)" -eq 1 ]]; then
-		cd "$(cat "$LF_TEMPDIR/lastdir")"
-	fi
-	/bin/rm -r "$LF_TEMPDIR"
-	unset LF_TEMPDIR
-}
-
-# Use lf to switch directories.
-function lfcd {
-    tmp="$(mktemp)"
-    lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        /bin/rm -f "$tmp" >/dev/null
-        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-    fi
-}
+trap keybd_trap KEYBD
 
 # change the title of terminals
 ILS='\033]1;'; ILE='\007'
 WLS='\033]2;'; WLE='\007'
 
-# do we want window decorations?
 if [[ -n $ILS ]]; then
 	function ilabel { print -n "${ILS}$*${ILE}">/dev/tty; }
 	function label { print -n "${WLS}$*${WLE}">/dev/tty; }
 
-        alias stripe='label "$USER@$HOSTNAME: $(pwd)"'
+        alias stripe='label "$USER@$HOSTNAME: $(_print_short_pwd)"'
 	alias istripe='ilabel "$USER@$HOSTNAME"'
 
 	# Run stuff through this to preserve the exit code

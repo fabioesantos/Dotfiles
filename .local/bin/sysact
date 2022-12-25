@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# A dmenu wrapper script for system functions.
+export WM="dwm"
+ctl='/sbin/openrc-shutdown'
+
+wmpid(){
+	tree="$(pstree -ps $$)"
+	tree="${tree#*$WM(}"
+	echo "${tree%%)*}"
+}
+
+case "$(printf " lock\n restart $WM\n leave $WM\n⏾ hibernate\n reboot\n shutdown\n sleep" | dmenu -i -p 'Action: ')" in
+	' lock') slock ;;
+        " restart $WM") kill -HUP "$(wmpid)" ;;
+	" leave $WM") kill -TERM "$(wmpid)" ;;
+	'⏾ hibernate') slock & doas -n /usr/sbin/s2disk ;;
+	' sleep') slock & doas -n /usr/sbin/s2ram ;;
+	' reboot') notify-send "  Rebooting..." & doas -n $ctl -r now ;;
+	' shutdown') notify-send "  Shutting down..." & doas -n $ctl -p now ;;
+	*) exit 1 ;;
+esac

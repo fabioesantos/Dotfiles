@@ -1,1 +1,15 @@
-/*html, img, video { -webkit-filter: invert(95%) hue-rotate(180deg); }*/
+*,div,pre,textarea,body,input,td,tr,p {
+    background-color: #091833 !important;
+    background-image: none !important;
+    color: #ffffff !important;
+}
+h1,h2,h3,h4 {
+    background-color: #091833 !important;
+    color: #b8ddea !important;
+}
+img {
+    opacity: .5;
+}
+img:hover {
+    opacity: 1;
+}
