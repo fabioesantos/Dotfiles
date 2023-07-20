@@ -1,0 +1,19 @@
+{{
+["domain"]={2},
+},
+{
+[""]={3},
+},
+{
+["tablist.visibility"]="multiple",
+["webview.default_font_size"]=12,
+["webview.hardware_acceleration_policy"]="always",
+["webview.enable_webgl"]=true,
+["application.prefer_dark_mode"]=true,
+["webview.default_monospace_font_size"]=12,
+["webview.sans_serif_font_family"]="sans-serif",
+["webview.default_font_family"]="FiraCode Nerd Font",
+["webview.enable_media_stream"]=true,
+["window.home_page"]="",
+},
+}

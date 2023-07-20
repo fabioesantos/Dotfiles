@@ -1,8 +1,0 @@
-#!/bin/sh
-
-#export WINEDEBUG=fixme-all,err-all,warn-all,trace-all
-#export ENABLE_VKBASALT=1
-#export VK_INSTANCE_LAYERS="VK_LAYER_MESA_overlay"
-#export VK_LAYER_MESA_OVERLAY_CONFIG="width=310,format=0"
-
-/home/fabiosantos/.local/share/lutris/runners/wine/lutris-GE-Proton7-33-x86_64/bin/wine $1

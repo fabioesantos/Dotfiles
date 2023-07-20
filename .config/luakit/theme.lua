@@ -1,36 +1,36 @@
 --------------------------
--- Default luakit theme --
+-- Gentoo luakit theme --
 --------------------------
 
 local theme = {}
 
 -- Default settings
 theme.font = "11px Fira Code Nerd Font"
-theme.fg   = "#a8a8a8"
+theme.fg   = "#F1FA8C"
 theme.bg   = "#020202"
 
 -- Genaral colours
-theme.success_fg = "#a8a8a8"
-theme.loaded_fg  = "#a8a8a8"
-theme.error_fg = "#6600cc"
+theme.success_fg = "#F1FA8C"
+theme.loaded_fg  = "#F1FA8C"
+theme.error_fg = "#4D4D4D"
 theme.error_bg = "#020202"
 
 -- Warning colours
 theme.warning_fg = "#8e8e8e"
-theme.warning_bg = "#a8a8a8"
+theme.warning_bg = "#F1FA8C"
 
 -- Notification colours
-theme.notif_fg = "#a8a8a8"
-theme.notif_bg = "#020202"
+theme.notif_fg = "#bbbbbb"
+theme.notif_bg = "#000000"
 
 -- Menu colours
-theme.menu_fg                   = "#a8a8a8"
-theme.menu_bg                   = "#080808"
-theme.menu_selected_fg          = "#f7f7f7"
+theme.menu_fg                   = "#bbbbbb"
+theme.menu_bg                   = "#000000"
+theme.menu_selected_fg          = "#eeeeee"
 theme.menu_selected_bg          = "#6600cc"
-theme.menu_title_bg             = "#020202"
-theme.menu_primary_title_fg     = "#686868"
-theme.menu_secondary_title_fg   = "#8e8e8e"
+theme.menu_title_bg             = "#000000"
+theme.menu_primary_title_fg     = "#bbbbbb"
+theme.menu_secondary_title_fg   = "#bbbbbb"
 
 theme.menu_disabled_fg = "#3d4550"
 theme.menu_disabled_bg = theme.menu_bg
@@ -40,46 +40,46 @@ theme.menu_active_fg =  "#686868"
 theme.menu_active_bg =  theme.menu_bg
 
 -- Proxy manager
-theme.proxy_active_menu_fg      = '#f7f7f7'
-theme.proxy_active_menu_bg      = '#6600cc'
-theme.proxy_inactive_menu_fg    = '#3d4550'
-theme.proxy_inactive_menu_bg    = '#080808'
+theme.proxy_active_menu_fg      = "#f7f7f7"
+theme.proxy_active_menu_bg      = "#4D4D4D"
+theme.proxy_inactive_menu_fg    = "#3d4550"
+theme.proxy_inactive_menu_bg    = "#080808"
 
 -- Statusbar specific
-theme.sbar_fg         = "#a8a8a8"
-theme.sbar_bg         = "#080808"
+theme.sbar_fg         = "#bbbbbb"
+theme.sbar_bg         = "#000000"
 
 -- Downloadbar specific
-theme.dbar_fg         = "#a8a8a8"
-theme.dbar_bg         = "#6600cc"
-theme.dbar_error_fg   = "#6600cc"
+theme.dbar_fg         = "#bbbbbb"
+theme.dbar_bg         = "#000000"
+theme.dbar_error_fg   = "#eeeeee"
 
 -- Input bar specific
-theme.ibar_fg           = "#a8a8a8"
-theme.ibar_bg           = "#020202"
+theme.ibar_fg           = "#bbbbbb"
+theme.ibar_bg           = "#000000"
 
 -- Tab label
-theme.tab_fg            = "#a8a8a8"
-theme.tab_bg            = "#020202"
-theme.tab_hover_bg      = "#6600cc"
-theme.tab_ntheme        = "#a8a8a8"
-theme.selected_fg       = "#a8a8a8"
+theme.tab_fg            = "#bbbbbb"
+theme.tab_bg            = "#000000"
+theme.tab_hover_bg      = "#4D4D4D"
+theme.tab_ntheme        = "#F1FA8C"
+theme.selected_fg       = "#eeeeee"
 theme.selected_bg       = "#6600cc"
-theme.selected_ntheme   = "#a8a8a8"
-theme.loading_fg        = "#a8a8a8"
+theme.selected_ntheme   = "#F1FA8C"
+theme.loading_fg        = "#F1FA8C"
 theme.loading_bg        = "#020202"
 
 theme.selected_private_tab_bg = "#3d295b"
 theme.private_tab_bg    = "#22254a"
 
 -- Trusted/untrusted ssl colours
-theme.trust_fg          = "#6600cc"
+theme.trust_fg          = "#4D4D4D"
 theme.notrust_fg        = "#3d4550"
 
 -- General colour pairings
-theme.ok = { fg = "#a8a8a8", bg = "#020202" }
+theme.ok = { fg = "#F1FA8C", bg = "#020202" }
 theme.warn = { fg = "#5d7b5c", bg = "#020202" }
-theme.error = { fg = "#6600cc", bg = "#020202" }
+theme.error = { fg = "#4D4D4D", bg = "#020202" }
 
 return theme
 

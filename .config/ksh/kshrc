@@ -1,66 +1,55 @@
 #!/bin/ksh
-#
-# .kshrc - Korn shell 93 startup file
-#
 
-# catch non ksh93, trying to run this file
+# catch non-oksh, trying to run this file
 case ${KSH_VERSION:-} in
-*93u+m*) ;;
-*) \return 0 ;;
+    "@(#)PD KSH"* ) ;;
+    *) \return 0 ;;
 esac
 
-# PATH to find custom functions to load
-FPATH="/home/fabiosantos/.local/share/ksh"
+# Source aditional files
+[ "$(id -u)" = 0 ] && . $HOME/.profile                      # Source variables if root
+. $XDG_CONFIG_HOME/shell/aliasrc                            # source some aliases
+. $XDG_DATA_HOME/ksh/completions.ksh                        # source completions
+eval "$(dircolors -b $XDG_CONFIG_HOME/shell/dir_colors)"    # Dircolors
 
 # Enable emacs mode
 set -o emacs
 
+# Path to search undefined functions
+FPATH="$XDG_DATA_HOME/ksh/functions/"
+
+# Bind keys
+bind '^[[A'=up-history
+bind '^[[B'=down-history
+bind '^[[C'=forward-char
+bind '^[[D'=backward-char
+bind -m '^O'='lfcd^J'
+
+# Set prompt
+PS1='\a\e[1;34m[ \a\u\a\e[m\a@\h \a\e[33m\a\W \a\e[1;31m\a$(_git_prompt)\a\e[1;34m] \a\e[m\a\$ '
+
+# Multiline prompt
+#PS1="\033[1;34m┌─| \u\033[m@\H \033[1;34m|──| \033[0;33m\w \033[1;34m|\n└─| \033[0m$PS1S\033[1;34m|─>> \033[m"
+
 # History settings.
-HISTFILE=~/.cache/ksh/history
-HISTSIZE=100000
-HISTEDIT=vi
-
-[[ "$USER" = "root" ]] && source ~/.profile
-source $XDG_CONFIG_HOME/shell/aliasrc           # Some aliases
-source $XDG_CONFIG_HOME/shell/ls_colorsrc       # Colors for ls command
-
-UID=$(id -u)
-case $UID in
-        0) PS1S='# ';;
-esac
-PS1S=${PS1S:-'$ '}
-
-# Shell prompt
-PS1=$'\a\e[1;35m\a${USER}\a\e[m\a@${HOSTNAME%%.*} \a\e[33m\a$(_print_short_pwd) \a\e[1;31m\a$(_git_prompt)\a\e[1;35m\a-> \a\e[m\a'
-
-# Assoctiate a key with an action.
-keybd_trap () {
-  case ${.sh.edchar} in
-    $'\f')    .sh.edchar=$'\e\f';;      # clear-screen (THIS QUESTION)
-    $'\e[1~') .sh.edchar=$'\001';;      # Home = beginning-of-line
-    $'\e[4~') .sh.edchar=$'\005';;      # End = end-of-line
-    $'\e[5~') .sh.edchar=$'\e>';;       # PgUp = history-previous
-    $'\e[6~') .sh.edchar=$'\e<';;       # PgDn = history-next
-    $'\e[3~') .sh.edchar=$'\004';;      # Delete = delete-char
-    $'\ca')   .sh.edchar=$'nsxiv *\n';; # Ctrl+a = nsxiv *
-    $'\co')   .sh.edchar=$'lfcd\n';;    # Ctrl+o = lfcd
-  esac
-}
-trap keybd_trap KEYBD
+HISTFILE="$XDG_CACHE_HOME/ksh/history"
+HISTSIZE=20000
+HISTCONTROL=ignoredups:ignorespace
 
 # change the title of terminals
 ILS='\033]1;'; ILE='\007'
 WLS='\033]2;'; WLE='\007'
 
+# do we want window decorations?
 if [[ -n $ILS ]]; then
 	function ilabel { print -n "${ILS}$*${ILE}">/dev/tty; }
 	function label { print -n "${WLS}$*${WLE}">/dev/tty; }
 
-        alias stripe='label "$USER@$HOSTNAME: $(_print_short_pwd)"'
+	alias stripe='label "$USER@$HOSTNAME: $(pwd_)"'
 	alias istripe='ilabel "$USER@$HOSTNAME"'
 
 	# Run stuff through this to preserve the exit code
-	function _ignore { rc=$?; "$@"; return $rc; }
+	function _ignore { local rc=$?; "$@"; return $rc; }
 
 	function wftp { ilabel "ftp $*"; "ftp" "$@"; _ignore eval istripe; }
 

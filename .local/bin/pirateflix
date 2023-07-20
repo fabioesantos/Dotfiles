@@ -1,22 +1,22 @@
 #!/bin/sh
 
-# Dependencies - peerflix, mpv, zenity and dmenu
+# Dependencies - peerflix, mpv, zenity and dmenu/wofi
+
+[ $WAYLAND_DISPLAY ] && MENU="wofi --dmenu"
 
 mkdir -p $HOME/.cache/pirateflix
 
-menu="dmenu -i -l 25"
 baseurl="https://1337x.to"
 cachedir="$HOME/.cache/pirateflix"
 
 if [ -z $1 ]; then
-  query=$(dmenu -p "Search Torrent: " <&-)
+  query=$(zenity --entry --title="pirateflix" --text="Search a torrent:" <&-)
 else
   query=$1
 fi
 
 query="$(echo $query | sed 's/ /+/g')"
 
-#curl -s https://1337x.to/category-search/$query/Movies/1/ > $cachedir/tmp.html
 curl -s $baseurl/search/$query/1/ > $cachedir/tmp.html
 
 # Get Titles
@@ -52,7 +52,7 @@ awk '{print "[S:"$1 ", L:"$2"]" }' $cachedir/seedleech.bw > $cachedir/tmp && mv 
 
 # Getting the line number
 LINE=$(paste -d\   $cachedir/size.bw $cachedir/seedleech.bw $cachedir/titles.bw |
-  $menu |
+  $MENU -l 10 |
   cut -d\- -f1 |
   awk '{$1=$1; print}')
 
@@ -66,9 +66,9 @@ fullURL="${baseurl}${url}/"
 
 # Requesting page for magnet link
 curl -s $fullURL > $cachedir/tmp.html
-magnet=$(grep -Po "magnet:\?xt=urn:btih:[a-zA-Z0-9]*" $cachedir/tmp.html | head -n 1) 
+magnet=$(grep -Po "magnet:\?xt=urn:btih:[a-zA-Z0-9]*" $cachedir/tmp.html | head -n 1)
 
-SUB="$([ $(echo "Yes\nNo" | dmenu -p "Pick a Subtitle?") = "Yes" ] && zenity --file-selection --title="Select a Subtitle")"
+SUB="$([ $(printf "Yes\nNo" | $MENU -p "Pick a Subtitle?") = "Yes" ] && zenity --file-selection --title="Select a Subtitle")"
 
 peerflix "$magnet" --mpv --subtitles "$SUB" &
 

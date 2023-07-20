@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
 Name=File Manager
-Exec=/usr/bin/st -e lf-run %u
+Exec=/usr/bin/st -e lfrun %u

@@ -1,6 +1,8 @@
 #!/bin/sh
 
-search="$(printf 'luideverso\nFelipe Durante\nHistória Pública\nHistória Cabeluda\nMeteoro Brasil\nJones Manuel\nJoão Carvalho' | dmenu -p 'Search Video:')"
+[ $WAYLAND_DISPLAY ] && MENU="wofi --dmenu"
+
+search="$(printf 'luideverso\nFelipe Durante\nHistória Pública\nHistória Cabeluda\nMeteoro Brasil\nJones Manuel\nJoão Carvalho' | $MENU -p 'Search Video')"
 
 [ ! "$search" ] && exit
 

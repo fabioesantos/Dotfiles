@@ -6,13 +6,13 @@ Fell free for use whatever you wish.
 
 ## Configurantion files for:
 
-* mpd
-* ksh93
+* Music on console
+* [OpenBSB ksh](https://github.com/dimkr/loksh)
 * asoundrc (alsa only setup)
-* lf (with image preview using ueberzug library)
-* Vim
+* lf (with image preview using [ueberzugpp](https://github.com/jstkdng/ueberzugpp))
+* [Vis text editor](https://github.com/martanne/vis)
 * Luakit
-* Lynx
+* Elinks
 * Xorg
 * Zathura
 * Picom

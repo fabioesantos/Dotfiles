@@ -9,9 +9,9 @@ network=$(ip route get 1.1.1.1 | grep -Po '(?<=dev\s)\w+') 2>/dev/null
 network_active=" "
 ping=$(ping -c 1 1.1.1.1 | tail -1| awk '{print $4}' | cut -d '/' -f 2 | cut -d '.' -f 1)ms
 
-[ $network = "wlan0" ] && network_active=" "
-[ $network = "eth0" ] && network_active=" "
-[ $network = "usb0" ] && network_active=" "
+[ "$network" = "wlan0" ] && network_active=" "
+[ "$network" = "eth0" ] && network_active=" "
+[ "$network" = "usb0" ] && network_active=" "
 
 #update() {
 #    sum=0
@@ -28,10 +28,10 @@ ping=$(ping -c 1 1.1.1.1 | tail -1| awk '{print $4}' | cut -d '/' -f 2 | cut -d 
 #rx=$(update /sys/class/net/[ew]*/statistics/rx_bytes)
 #tx=$(update /sys/class/net/[ew]*/statistics/tx_bytes)
 
-#nettraf="$(printf "%4sB %4sB\\n" $(numfmt --to=iec $rx) $(numfmt --to=iec $tx))"
+#nettraf="$(printf " %4sB  %4sB\\n" $(numfmt --to=iec $rx) $(numfmt --to=iec $tx))"
 
 if [ ! $network ]; then
         echo "$network_active Disconnected"
 else
-        echo "$network_active $network ($ping)"
+	echo "$network_active $network ($ping)"
 fi

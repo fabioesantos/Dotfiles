@@ -1,0 +1,10 @@
+function vicd {
+    if [ -f $XDG_CACHE_HOME/vifm/lastdir ]; then
+        /bin/rm $XDG_CACHE_HOME/vifm/lastdir
+    fi
+    # "command" prevents recursive call
+    command vifmrun "$@"
+    if [ -f $XDG_CACHE_HOME/vifm/lastdir ]; then
+        cd `cat $XDG_CACHE_HOME/vifm/lastdir`
+    fi
+}

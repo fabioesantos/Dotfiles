@@ -2,8 +2,8 @@
 while read file
 do
         case "$1" in
-        "w") ln -sf "$(readlink -f $file)" ~/.config/X11/wall.jpg &&
-                xwallpaper --stretch $XDG_CONFIG_HOME/X11/wall.jpg &&
+        "w") ln -sf "$file" ~/.config/X11/wall.jpg &&
+                xwallpaper --stretch $(readlink -f $XDG_CONFIG_HOME/X11/wall.jpg) &&
                 notify-send "  Wallpaper changed!" ;;
         "c")
 		[ -z "$destdir" ] && destdir="$(sed "s/\s.*#.*$//;/^\s*$/d" ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | awk '{print $2}' | dmenu -l 20 -i -p "Copy file(s) to where?" | sed "s|~|$HOME|g")"

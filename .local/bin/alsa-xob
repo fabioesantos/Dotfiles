@@ -1,9 +1,12 @@
 #!/bin/sh
 
-if [ $(amixer sget Master | awk 'NR==5{print $6}') = "[off]" ]; then
-        echo 0 >> /tmp/xobpipe
+mute_status="$(amixer sget Master | awk 'NR==5{print $6}')"
+volume="$(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')"
+
+if [ "$mute_status" = "[off]" ]; then
+        echo "$volume!" >> $XDG_RUNTIME_DIR/xobpipe
 else
-        echo $(amixer get Master | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/') >> /tmp/xobpipe
+        echo "$volume" >> $XDG_RUNTIME_DIR/xobpipe
 fi
 
 pkill -RTMIN+10 dwmblocks

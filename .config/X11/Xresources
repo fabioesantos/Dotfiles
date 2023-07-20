@@ -7,11 +7,11 @@
 !!                                                    !!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-/* X cursor settings */
+!! X cursor settings
 Xcursor.theme: gentoo
 Xcursor.size: 20
 
-/* Xft font settings */
+!! Xft font settings
 Xft.dpi: 96
 Xft.antialias: true
 Xft.hinting: true
@@ -20,26 +20,75 @@ Xft.hintstyle: hintfull
 Xft.lcdfilter: lcdfilter
 Xft.rgba: rgb
 
-/* General settings*/
-*font: Fira Code Nerd Font:size=8
-*bar.background: #091833
-*bar.foreground: #0abdc6
-*background:  #000b1e
-*foreground:  #0abdc6
+/* Base16 Unikitty Dark */
+/* Scheme: Josh W Lewis (@joshwlewis) */
+#define base00 #2e2a31
+#define base01 #4a464d
+#define base02 #666369
+#define base03 #838085
+#define base04 #9f9da2
+#define base05 #bcbabe
+#define base06 #d8d7da
+#define base07 #f5f4f7
+#define base08 #d8137f
+#define base09 #d65407
+#define base0A #dc8a0e
+#define base0B #17ad98
+#define base0C #149bda
+#define base0D #796af5
+#define base0E #bb60ea
+#define base0F #c720ca
 
-*color0:  #123e7c
-*color1:  #ff0000
-*color2:  #d300c4
-*color3:  #f57800
-*color4:  #123e7c
-*color5:  #711c91
-*color6:  #0abdc6
-*color7:  #d7d7d5
-*color8:  #1c61c2
-*color9:  #ff0000
-*color10:  #d300c4
-*color11:  #f57800
-*color12:  #00ff00
-*color13:  #711c91
-*color14:  #0abdc6
-*color15:  #d7d7d5
+*foreground:  base05
+*background:  #000000
+*cursorColor: base05
+*font: Fira Code Nerd Font:size=9
+
+*color0:  base00
+*color1:  base08
+*color2:  base0B
+*color3:  base0A
+*color4:  base0D
+*color5:  base0E
+*color6:  base0C
+*color7:  base05
+*color8:  base03
+*color9:  base08
+*color10: base0B
+*color11: base0A
+*color12: base0D
+*color13: base0E
+*color14: base0C
+*color15: base07
+/* Note: colors beyond 15 might not be loaded (e.g., xterm, urxvt),
+use 'shell' template to set these if necessary */
+*color16: base09
+*color17: base0F
+*color18: base01
+*color19: base02
+*color20: base04
+*color21: base06
+
+!! Xterm config
+XTerm*cursorColor:        #0abdc6
+XTerm*termName:           xterm-256color
+XTerm*renderFont:         true
+XTerm*faceName:           xft:mononoki Nerd Font
+XTerm*faceSize:           11
+XTerm*allowBoldFonts:     true
+XTerm*locale:             false
+XTerm*utf8:               true
+XTerm*charClass:          33:48,36-47:48,58-59:48,61:48,63-64:48,95:48,126:48
+XTerm*dynamiccolors:      true
+XTerm*visualBell:         off
+XTerm*highlightSelection: true
+XTerm*loginShell:         false
+XTerm*scaleHeight:        1.00
+XTerm*savelines:          16384
+XTerm*cursorBlink:        false
+
+XTerm*vt100.translations: #override \
+        Ctrl <Key> minus:   smaller-vt-font() \n\
+        Ctrl <Key> plus:    larger-vt-font() \n\
+        Shift Ctrl <Key> C: copy-selection(CLIPBOARD) \n\
+        Shift Ctrl <Key> V: insert-selection(CLIPBOARD)

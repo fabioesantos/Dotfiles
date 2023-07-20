@@ -1,0 +1,8 @@
+function pwd_ {
+    local d=${PWD}
+    case $d in
+        $HOME) d="~" ;;
+        $HOME/*) d="$(echo $d | sed 's/\/home\/fabiosantos/~/')" ;;
+    esac
+    print -nr -- "$d"
+}

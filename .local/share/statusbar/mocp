@@ -1,0 +1,21 @@
+#!/bin/sh
+
+case $BLOCK_BUTTON in
+	1) mocp --toggle-pause ;;
+	2) "$TERMINAL" -e "$EDITOR" "$0" ;;
+	3) "$TERMINAL" -e mocp ;;
+esac
+
+mpid="$(pidof mocp)"
+
+[ "$mpid" ] &&
+        info="$(mocp --format %song)" &&
+        music="$(mocp --format %ct)" &&
+        mpdstate="$(mocp --format %state)"
+
+[ -z "$music" ] && STATUS="■ Stopped"
+[ -z "$mpid" ] && STATUS=" off"
+[ "$mpdstate" = "PAUSE" ] && STATUS=" $info ($music)"
+[ "$mpdstate" = "PLAY" ] && STATUS=" $info ($music)"
+
+echo " $STATUS"

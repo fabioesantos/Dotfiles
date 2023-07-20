@@ -6,7 +6,6 @@ feeds() {
 	feed "Brasil de Fato" "https://www.brasildefato.com.br/rss2.xml"
 	feed "G1" "https://g1.globo.com/rss/g1/politica/"
 	feed "linux kernel" "https://www.kernel.org/feeds/kdist.xml" "https://www.kernel.org"
-	feed "reddit openbsd" "https://old.reddit.com/r/openbsd/.rss"
 	feed "RT en español" "https://actualidad.rt.com/feeds/all.rss"
 	feed "Opera Mundi" "https://operamundi.uol.com.br/rss"
 }

@@ -1,11 +1,13 @@
 #!/bin/sh
 
-case $BLOCK_BUTTON in
-	2) "$TERMINAL" -e "$EDITOR" "$0" ;;
-esac
-
 raw=$(cat /sys/class/thermal/thermal_zone2/temp)
 
 temp=$(( $raw/1000 ))
 
 echo " $temp°C"
+
+case $BLOCK_BUTTON in
+	1) notify-send " $temp°C" ;;
+	2) "$TERMINAL" -e "$EDITOR" "$0" ;;
+esac
+

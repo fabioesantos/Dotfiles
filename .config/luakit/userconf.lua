@@ -3,9 +3,10 @@ local modes = require "modes"
 local settings = require "settings"
 local newtab_chrome = require "newtab_chrome"
 local webview = require "webview"
+local unique_instance = require "unique_instance"
 
 -- Set the luakit newtab page
-newtab_chrome.new_tab_file = "/home/fabiosantos/.local/share/surf/html/homepage.html"
+newtab_chrome.new_tab_file = "/home/fabiosantos/.local/share/luakit/newtab.html"
 
 -- Use DucuDuckGo as default search engine
 settings.window.default_search_engine = "duckduckgo"
@@ -41,3 +42,5 @@ webview.add_signal("init", function (view)
 end)
 
 webview.hardware_acceleration_policy = "always"
+
+unique_instance.open_links_in_new_window = false

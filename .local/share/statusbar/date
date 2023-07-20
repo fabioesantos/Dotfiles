@@ -5,5 +5,5 @@ case $BLOCK_BUTTON in
 	2) "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
-echo "  $(date '+%b %d (%a) %R') "
+echo " $(date '+%b %d (%a) %R') "
 #☭

@@ -1,8 +1,10 @@
-#!/bin/bash
+#!/bin/sh
 
 # A dmenu wrapper script for system functions.
 export WM="dwm"
 ctl='/sbin/openrc-shutdown'
+lock="slock"
+[ $WAYLAND_DISPLAY ] && MENU="wofi --dmenu" && lock="swaylock -f -i ~/Pictures/Wallpapers/wp7165538.png"
 
 wmpid(){
 	tree="$(pstree -ps $$)"
@@ -10,13 +12,13 @@ wmpid(){
 	echo "${tree%%)*}"
 }
 
-case "$(printf " lock\n restart $WM\n leave $WM\n⏾ hibernate\n reboot\n shutdown\n sleep" | dmenu -i -p 'Action: ')" in
-	' lock') slock ;;
-        " restart $WM") kill -HUP "$(wmpid)" ;;
+case "$(printf " lock\n restart $WM\n leave $WM\n⏾ hibernate\n reboot\n shutdown\n sleep" | $MENU -i -p 'Action: ')" in
+	" lock") $lock ;;
+	" restart $WM") kill -HUP "$(wmpid)" ;;
 	" leave $WM") kill -TERM "$(wmpid)" ;;
-	'⏾ hibernate') slock & doas -n /usr/sbin/s2disk ;;
-	' sleep') slock & doas -n /usr/sbin/s2ram ;;
-	' reboot') notify-send "  Rebooting..." & doas -n $ctl -r now ;;
-	' shutdown') notify-send "  Shutting down..." & doas -n $ctl -p now ;;
+	"⏾ hibernate") $lock & doas -n /usr/sbin/s2disk ;;
+	" sleep") $lock & doas -n /usr/sbin/s2ram ;;
+	" reboot") notify-send "  Rebooting..." & doas -n $ctl -r now ;;
+	" shutdown") notify-send "  Shutting down..." & doas -n $ctl -p now ;;
 	*) exit 1 ;;
 esac

@@ -4,22 +4,20 @@
 # This file runs when a DM logs you into a graphical session.
 # If you use startx/xinit like a Chad, this file will also be sourced.
 
-[ ! -e /tmp/xobpipe ] && mkfifo /tmp/xobpipe
+[ ! -e $XDG_RUNTIME_DIR/xobpipe ] && mkfifo $XDG_RUNTIME_DIR/xobpipe
 
 /usr/bin/numlockx on &
 
 xwallpaper --stretch $XDG_CONFIG_HOME/X11/wall.jpg &
 
-picom &
+$COMPOSITOR &
 
 dwmblocks &
 
-#xss-lock slock 2>/dev/null &
-
-[ $(pidof redshift) ] && pkill -KILL redshift
+#xss-lock slock &
 
 redshift 1>/dev/null 2>/dev/null &
 
-[ $(pidof xob) ] && pkill -KILL xob && pkill -KILL tail
+xvattr -a XV_SYNC_TO_VBLANK -v 0 >/dev/null &
 
-tail -f /tmp/xobpipe | xob &
+tail -f $XDG_RUNTIME_DIR/xobpipe | xob >/dev/null &

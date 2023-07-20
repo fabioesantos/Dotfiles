@@ -1,0 +1,6 @@
+CC="x86_64-gentoo-linux-musl-gcc"
+CXX="x86_64-gentoo-linux-musl-g++"
+
+CFLAGS=-march=skylake -O3 -pipe -flto=4 -fipa-pta -fno-semantic-interposition -fuse-linker-plugin -falign-functions=32
+CXXFLAGS=${CFLAGS}
+LDFLAGS=-Wl,-lexecinfo

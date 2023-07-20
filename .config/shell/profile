@@ -1,18 +1,14 @@
 #!/bin/ksh
 
-### user shell profile ###
-
-# Set location of kshrc file
-export ENV="${HOME}/.config/ksh/kshrc"
-
 # Add '~/.local/bin' to $PATH
 export PATH="${HOME}/.local/bin:${PATH}"
 
 # Default programs:
-export BROWSER="surf-open.sh"
+export BROWSER="luakit"
 export READER="zathura"
 export TERMINAL="st"
 export COMPOSITOR="picom"
+export MENU="dmenu"
 
 # XDG base directories
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -22,9 +18,10 @@ export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_RUNTIME_DIR="/run/user/$(id -u)"
 
 # Cleaning $HOME
-export ZDOTDIR="$XDG_CONFIG_HOME/zsh/"
+export ENV="$XDG_CONFIG_HOME/ksh/kshrc"
 export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"
 export XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc"
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 export LESSHISTFILE="$XDG_CACHE_HOME/less/history"
 export ICEAUTHORITY="$XDG_CACHE_HOME/ICEauthority"
 export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
@@ -34,29 +31,41 @@ export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-export VIMINIT="set nocp | source ${XDG_CONFIG_HOME}/vim/init.vim"
 export INPUTRC="$HOME/.config/inputrc"
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch/config"
 export MBSYNCRC="$XDG_CONFIG_HOME/mbsync/config"
-export IJ_HOME="$XDG_CONFIG_HOME/imagej"
+export MOCP_OPTS="-M $XDG_CONFIG_HOME/moc -O MOCDir=$XDG_CONFIG_HOME/moc"
+export R_PROFILE_USER="$XDG_CONFIG_HOME/R/Rprofile"
+export R_MAKEVARS_USER="$XDG_CONFIG_HOME/R/Makevars"
+export ELINKS_CONFDIR="$XDG_CONFIG_HOME/elinks"
+export RANDFILE="$XDG_CACHE_HOME/rnd"
+
+# Man-page colors
+export MANPAGER="less -R --use-color -Dd+r -Du+b"
+export LESS_TERMCAP_mb=$(printf "\e[1;31m")
+export LESS_TERMCAP_md=$(printf "\e[1;31m")
+export LESS_TERMCAP_me=$(printf "\e[0m")
+export LESS_TERMCAP_se=$(printf "\e[0m")
+export LESS_TERMCAP_so=$(printf "\e[0;37;102m")
+export LESS_TERMCAP_ue=$(printf "\e[0m")
+export LESS_TERMCAP_us=$(printf "\e[4;32m")
+export _NROFF_U=1
+export GROFF_NO_SGR=1
 
 # Misc
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export LLVM=1
+export LLVM_IAS=1
 export LESSOPEN="| /usr/bin/highlight -O ansi %s 2>/dev/null"
-export LESS_TERMCAP_mb="$(printf '%b' '[1;31m')"
-export LESS_TERMCAP_md="$(printf '%b' '[1;36m')"
-export LESS_TERMCAP_me="$(printf '%b' '[0m')"
-export LESS_TERMCAP_so="$(printf '%b' '[01;44;33m')"
-export LESS_TERMCAP_se="$(printf '%b' '[0m')"
-export LESS_TERMCAP_us="$(printf '%b' '[1;32m')"
-export LESS_TERMCAP_ue="$(printf '%b' '[0m')"
 export SUDO_ASKPASS="$HOME/.local/bin/dmenupass"
-export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export _JAVA_AWT_WM_NONREPARENTING=1
 export AWT_TOOLKIT="MToolkit wmname LG3D"
 export LIBVA_DRIVER_NAME="i965"
+#export WEBKIT_GST_ENABLE_LEGACY_VAAPI=1
 export ENABLE_VKBASALT=0
+export COLORFGBG=";0"
 export WINEFSYNC=1
 export WINEESYNC=1
 export HOSTNAME=$(hostname)
-export LESS=-R
+export STEAM_RUNTIME=0
+export LESS="-R"

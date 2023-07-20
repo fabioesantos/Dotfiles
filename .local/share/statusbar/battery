@@ -1,20 +1,19 @@
 #!/bin/sh
 
 case $BLOCK_BUTTON in
-#        1) notify-send 'echo $(BATTERY_INFO)' ;;
 	2) "$TERMINAL" -e "$EDITOR" "$0" ;;
 esac
 
-BATTERY=$(cat /sys/class/power_supply/BAT1/capacity)
-STATUS=$(cat /sys/class/power_supply/BAT1/status)
+battery=$(cat /sys/class/power_supply/BAT1/capacity)
+status=$(cat /sys/class/power_supply/BAT1/status)
 
-[ $STATUS = "Discharging" ] && BATTERY_INFO=" $BATTERY%"
-[ $STATUS = "Charging" ] && BATTERY_INFO=" $BATTERY%"
-[ $STATUS = "Full" ] && BATTERY_INFO=" $BATTERY%"
-[ $STATUS = "Unknown" ] && BATTERY_INFO=" $BATTERY%"
-[ $STATUS = "Not charging" ] && BATTERY_INFO=" $BATTERY%"
+[ $status = "Discharging" ] && battery_INFO=" $battery%"
+[ $status = "Charging" ] && battery_INFO=" $battery%"
+[ $status = "Full" ] && battery_INFO=" $battery%"
+[ $status = "Unknown" ] && battery_INFO=" $battery%"
+[ $status = "Not charging" ] && battery_INFO=" $battery%"
 
 # Low Battery warning
-[ "$BATTERY" = "10" ] && notify-send "    Low Battery 10%"
+[ "$battery" = "10" ] && notify-send "    Low Battery 10%"
 
-echo "$BATTERY_INFO"
+echo "$battery_INFO"

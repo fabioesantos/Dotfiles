@@ -6,22 +6,18 @@ case $BLOCK_BUTTON in
 	3) "$TERMINAL" -e alsamixer ;;
 esac
 
-VOLUME="$(amixer sget Master | awk -F"[][]" '/dB/ { print $2 }' | sed 's/%//')"
-headphone="$(cat /proc/asound/card0/codec#0 | grep "Pin-ctls" | awk 'NR==2{print $3}')"
+volume="$(amixer sget Master | awk -F"[][]" '/dB/ { print $2 }' | sed 's/%//')"
+headphone="$(cat '/proc/asound/card0/codec#0' | grep "Pin-ctls" | awk 'NR==2{print $3}')"
 
-if [ $(amixer sget Master | awk 'NR==5{print $6}') = "[off]" ]; then
-        VOL_ICON=" "
-        VOLUME="Muted"
-elif [ "$headphone" != "OUT" ]; then
-        VOL_ICON=""
-elif [ $VOLUME -lt 30 ]; then
-	VOL_ICON=""
-elif [ $VOLUME -lt 60 ]; then
-	VOL_ICON=""
-else
-	VOL_ICON=""
-fi
+[ $(amixer sget Master | awk 'NR==5{print $6}') = "[off]" ] && echo "  Muted" && exit
 
-[ "$VOLUME" = "Muted" ] &&
-        echo "$VOL_ICON $VOLUME" ||
-        echo "$VOL_ICON $VOLUME%"
+case 1 in
+	$((volume >= 70)) ) icon="" ;;
+	$((volume >= 30)) ) icon="" ;;
+	$((volume >= 1)) ) icon="" ;;
+	$((volume == 0)) ) icon="" ;;
+esac
+
+[ "$headphone" != "OUT" ] && icon=""
+
+echo "$icon $volume%"

@@ -8,23 +8,22 @@ alias la='ls -a'
 alias ll='ls -l'
 alias lo='ls -al'
 
-# use colors in grep and diff
+# Use colors
 alias grep='grep --color=auto'
 alias egrep='grep -E --colour=auto'
 alias fgrep='grep -F --colour=auto'
-alias diff="diff --color=auto"
+alias diff='diff --color=auto'
+alias ip='ip -color=always'
 
 # confirm before overwriting something
-alias cp="cp -iv"
+alias cp='cp -iv'
 alias mv='mv -iv'
 alias rm='rm -iv'
 
 # misc
+alias lf="lfrun"
 alias startx='startx "$XINITRC" -- "$XSERVERRC" vt1'
 alias weather='curl -sf wttr.in/Belo-Horizonte,BR'
-alias neomutt='neomutt && pkill -RTMIN+11 dwmblocks'
-alias lynx='lynx -cfg=~/.config/lynx/lynx.cfg -lss=~/.config/lynx/lynx.lss -vikeys'
+alias mutt='mutt && pkill -RTMIN+11 dwmblocks; pkill -RTMIN+10 waybar'
 alias abook='abook --config "$XDG_CONFIG_HOME"/abook/abookrc --datafile "$XDG_DATA_HOME"/abook/addressbook'
-alias lf='lf-run'
-alias ncmpcpp='ncmpcpp-ueberzug'
-alias magit="vim -c MagitOnly"
+alias man='man -O width=$COLUMNS'
